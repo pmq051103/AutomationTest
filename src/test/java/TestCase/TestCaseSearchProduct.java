@@ -58,7 +58,7 @@ public class TestCaseSearchProduct extends Basic{
 	 
 	 
 	 
-	 @Test(priority = 1, dataProvider = "ProductData", description = "TC03 - Kiểm tra chức năng tìm kiếm")
+	 @Test(priority = 1, dataProvider = "ProductData", description = "TC04 - Kiểm tra chức năng tìm kiếm")
 	    @Story("Tìm kiếm sản phẩm thành công")
 	    @Step("Tìm kiếm với tên sản phẩm: {0}")
 	    public void TestSearchProduct(String nameProduct) throws InterruptedException {

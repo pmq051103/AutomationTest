@@ -6,14 +6,15 @@
   </listeners>
   <test thread-count="5" name="Test_Shopee(failed)">
     <classes>
-      <class name="TestCase.TestCaseSearchProduct">
+      <class name="TestCase.TestCaseLogin">
         <methods>
           <include name="TearDown"/>
           <include name="afterClass"/>
+          <include name="TestLoginFail_AccountLengthLessThan8" invocation-numbers="0"/>
+          <include name="TestLoginFail" invocation-numbers="0"/>
           <include name="SetUp"/>
-          <include name="TestSearchProduct"/>
         </methods>
-      </class> <!-- TestCase.TestCaseSearchProduct -->
+      </class> <!-- TestCase.TestCaseLogin -->
     </classes>
   </test> <!-- Test_Shopee(failed) -->
 </suite> <!-- Failed suite [Suite] -->

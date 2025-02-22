@@ -9,13 +9,20 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="8">Suite</th></tr>
-<tr><td><a href="#t0">Test_Shopee</a></td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">309,528</td><td></td><td></td></tr>
+<tr><td><a href="#t0">Test_Shopee</a></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num attn">2</td><td class="num">168,719</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Test_Shopee &#8212; passed</th></tr><tr class="passedeven"><td rowspan="2">TestCase.TestCaseLogin</td><td><a href="#m0">TestLoginFail</a></td><td rowspan="1">1739938840407</td><td rowspan="1">23464</td></tr><tr class="passedeven"><td><a href="#m1">TestLoginWithPhoneNumber</a></td><td rowspan="1">1739938794582</td><td rowspan="1">13669</td></tr><tr class="passedodd"><td rowspan="2">TestCase.TestCaseSearchProduct</td><td><a href="#m2">TestSearchProduct</a></td><td rowspan="2">1739938888320</td><td rowspan="2">51009</td></tr><tr class="passedodd"><td><a href="#m3">TestSearchProduct</a></td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Test_Shopee &#8212; failed</th></tr><tr class="failedeven"><td rowspan="2">TestCase.TestCaseLogin</td><td><a href="#m0">TestLoginFail</a></td><td rowspan="1">1740133237293</td><td rowspan="1">5892</td></tr><tr class="failedeven"><td><a href="#m1">TestLoginFail_AccountLengthLessThan8</a></td><td rowspan="1">1740133284644</td><td rowspan="1">4689</td></tr><tr><th colspan="4">Test_Shopee &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">TestCase.TestCaseLogin</td><td><a href="#m2">TestLoginWithPhoneNumber</a></td><td rowspan="1">1740133162272</td><td rowspan="1">45919</td></tr></tbody>
 </table>
-<h2>Test_Shopee</h2><h3 id="m0">TestCase.TestCaseLogin#TestLoginFail</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr><tr class="param stripe"><td>839394893</td><td>ABCYHX2@</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m1">TestCase.TestCaseLogin#TestLoginWithPhoneNumber</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th></tr><tr class="param stripe"><td>346991600</td><td>Quang0511@</td><td>0346991600quang</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m2">TestCase.TestCaseSearchProduct#TestSearchProduct</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Iphone</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m3">TestCase.TestCaseSearchProduct#TestSearchProduct</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Áo Thun</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h2>Test_Shopee</h2><h3 id="m0">TestCase.TestCaseLogin#TestLoginFail</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th></tr><tr class="param stripe"><td>983495935</td><td>UKsjsdW@123</td><td>Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.</td></tr><tr><th colspan="3">Exception</th></tr><tr><td colspan="3"><div class="stacktrace">java.lang.AssertionError: The following asserts failed:
+	Thông báo lỗi đăng nhập không đúng expected [true] but found [false]
+	at TestCase.TestCaseLogin.TestLoginFail(TestCaseLogin.java:117)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+... Removed 29 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m1">TestCase.TestCaseLogin#TestLoginFail_AccountLengthLessThan8</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th></tr><tr class="param stripe"><td>8453234</td><td>UKsjsdW@123</td><td>Uiii, có lỗi rồi. Vui lòng thử lại sau</td></tr><tr><th colspan="3">Exception</th></tr><tr><td colspan="3"><div class="stacktrace">java.lang.AssertionError: The following asserts failed:
+	Thông báo lỗi đăng nhập không đúng expected [true] but found [false]
+	at TestCase.TestCaseLogin.TestLoginFail_AccountLengthLessThan8(TestCaseLogin.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+... Removed 29 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m2">TestCase.TestCaseLogin#TestLoginWithPhoneNumber</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th></tr><tr class="param stripe"><td>346991600</td><td>Quang0511@</td><td>0346991600quang</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>

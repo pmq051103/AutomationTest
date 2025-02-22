@@ -1,61 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="4" passed="4" failed="0" skipped="0">
+<testng-results ignored="0" total="3" passed="1" failed="2" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-02-19T11:19:14 ICT" name="Suite" finished-at="2025-02-19T11:24:23 ICT" duration-ms="309528">
+  <suite started-at="2025-02-21T17:18:45 ICT" name="Suite" finished-at="2025-02-21T17:21:34 ICT" duration-ms="168719">
     <groups>
     </groups>
-    <test started-at="2025-02-19T11:19:14 ICT" name="Test_Shopee" finished-at="2025-02-19T11:24:23 ICT" duration-ms="309528">
-      <class name="TestCase.TestCaseSearchProduct">
-        <test-method is-config="true" signature="SetUp()[pri:0, instance:TestCase.TestCaseSearchProduct@5460cf3a]" started-at="2025-02-19T11:21:08 ICT" name="SetUp" finished-at="2025-02-19T11:21:28 ICT" duration-ms="19806" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- SetUp -->
-        <test-method signature="TestSearchProduct(java.lang.String)[pri:1, instance:TestCase.TestCaseSearchProduct@5460cf3a]" started-at="2025-02-19T11:21:28 ICT" name="TestSearchProduct" description="TC03 - Kiểm tra chức năng tìm kiếm" data-provider="ProductData" finished-at="2025-02-19T11:22:19 ICT" duration-ms="51009" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Iphone]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- TestSearchProduct -->
-        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestCase.TestCaseSearchProduct@5460cf3a]" started-at="2025-02-19T11:22:19 ICT" name="TearDown" finished-at="2025-02-19T11:23:01 ICT" duration-ms="42069" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- TearDown -->
-        <test-method is-config="true" signature="SetUp()[pri:0, instance:TestCase.TestCaseSearchProduct@5460cf3a]" started-at="2025-02-19T11:23:01 ICT" name="SetUp" finished-at="2025-02-19T11:23:18 ICT" duration-ms="17070" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- SetUp -->
-        <test-method signature="TestSearchProduct(java.lang.String)[pri:1, instance:TestCase.TestCaseSearchProduct@5460cf3a]" started-at="2025-02-19T11:23:18 ICT" name="TestSearchProduct" description="TC03 - Kiểm tra chức năng tìm kiếm" data-provider="ProductData" finished-at="2025-02-19T11:24:19 ICT" duration-ms="60697" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Áo Thun]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- TestSearchProduct -->
-        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestCase.TestCaseSearchProduct@5460cf3a]" started-at="2025-02-19T11:24:19 ICT" name="TearDown" finished-at="2025-02-19T11:24:21 ICT" duration-ms="2634" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- TearDown -->
-        <test-method is-config="true" signature="afterClass()[pri:0, instance:TestCase.TestCaseSearchProduct@5460cf3a]" started-at="2025-02-19T11:24:21 ICT" name="afterClass" finished-at="2025-02-19T11:24:23 ICT" duration-ms="2006" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- afterClass -->
-      </class> <!-- TestCase.TestCaseSearchProduct -->
+    <test started-at="2025-02-21T17:18:45 ICT" name="Test_Shopee" finished-at="2025-02-21T17:21:34 ICT" duration-ms="168719">
       <class name="TestCase.TestCaseLogin">
-        <test-method is-config="true" signature="SetUp()[pri:0, instance:TestCase.TestCaseLogin@22f31dec]" started-at="2025-02-19T11:19:14 ICT" name="SetUp" finished-at="2025-02-19T11:19:54 ICT" duration-ms="40206" status="PASS">
+        <test-method is-config="true" signature="SetUp()[pri:0, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:18:45 ICT" name="SetUp" finished-at="2025-02-21T17:19:22 ICT" duration-ms="36512" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SetUp -->
-        <test-method signature="TestLoginWithPhoneNumber(java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:TestCase.TestCaseLogin@22f31dec]" started-at="2025-02-19T11:19:54 ICT" name="TestLoginWithPhoneNumber" description="TC01 - Kiểm tra chức năng đăng nhập bằng số điện thoại với thông tin hợp lệ" data-provider="ValidLoginData" finished-at="2025-02-19T11:20:08 ICT" duration-ms="13669" status="PASS">
+        <test-method signature="TestLoginWithPhoneNumber(java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:19:22 ICT" name="TestLoginWithPhoneNumber" description="TC01 - Kiểm tra đăng nhập thành công" data-provider="ValidLoginData" finished-at="2025-02-21T17:20:08 ICT" duration-ms="45919" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -76,35 +32,153 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestLoginWithPhoneNumber -->
-        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestCase.TestCaseLogin@22f31dec]" started-at="2025-02-19T11:20:08 ICT" name="TearDown" finished-at="2025-02-19T11:20:10 ICT" duration-ms="2677" status="PASS">
+        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:20:08 ICT" name="TearDown" finished-at="2025-02-21T17:20:11 ICT" duration-ms="2940" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TearDown -->
-        <test-method is-config="true" signature="SetUp()[pri:0, instance:TestCase.TestCaseLogin@22f31dec]" started-at="2025-02-19T11:20:10 ICT" name="SetUp" finished-at="2025-02-19T11:20:40 ICT" duration-ms="29463" status="PASS">
+        <test-method is-config="true" signature="SetUp()[pri:0, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:20:11 ICT" name="SetUp" finished-at="2025-02-21T17:20:37 ICT" duration-ms="26146" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SetUp -->
-        <test-method signature="TestLoginFail(java.lang.String,java.lang.String)[pri:2, instance:TestCase.TestCaseLogin@22f31dec]" started-at="2025-02-19T11:20:40 ICT" name="TestLoginFail" description="TC02 - Kiểm tra chức năng đăng nhập thất bại" data-provider="InvalidLoginData" finished-at="2025-02-19T11:21:03 ICT" duration-ms="23464" status="PASS">
+        <test-method signature="TestLoginFail(java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:20:37 ICT" name="TestLoginFail" description="TC02 - Kiểm tra đăng nhập thất bại" data-provider="InvalidLoginData1" finished-at="2025-02-21T17:20:43 ICT" duration-ms="5892" status="FAIL">
           <params>
             <param index="0">
               <value>
-                <![CDATA[839394893]]>
+                <![CDATA[983495935]]>
               </value>
             </param>
             <param index="1">
               <value>
-                <![CDATA[ABCYHX2@]]>
+                <![CDATA[UKsjsdW@123]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.]]>
               </value>
             </param>
           </params>
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[The following asserts failed:
+Thông báo lỗi đăng nhập không đúng expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: The following asserts failed:
+Thông báo lỗi đăng nhập không đúng expected [true] but found [false]
+at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:46)
+at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:30)
+at TestCase.TestCaseLogin.TestLoginFail(TestCaseLogin.java:117)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:739)
+at org.testng.TestRunner.run(TestRunner.java:614)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestLoginFail -->
-        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestCase.TestCaseLogin@22f31dec]" started-at="2025-02-19T11:21:03 ICT" name="TearDown" finished-at="2025-02-19T11:21:06 ICT" duration-ms="2626" status="PASS">
+        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:20:43 ICT" name="TearDown" finished-at="2025-02-21T17:20:59 ICT" duration-ms="16081" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TearDown -->
-        <test-method is-config="true" signature="afterClass()[pri:0, instance:TestCase.TestCaseLogin@22f31dec]" started-at="2025-02-19T11:21:06 ICT" name="afterClass" finished-at="2025-02-19T11:21:08 ICT" duration-ms="2008" status="PASS">
+        <test-method is-config="true" signature="SetUp()[pri:0, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:20:59 ICT" name="SetUp" finished-at="2025-02-21T17:21:24 ICT" duration-ms="24803" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- SetUp -->
+        <test-method signature="TestLoginFail_AccountLengthLessThan8(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:21:24 ICT" name="TestLoginFail_AccountLengthLessThan8" description="TC03 - Kiểm tra đăng nhập thất bại với tài khoản &lt; 9 kí tự" data-provider="InvalidLoginData2" finished-at="2025-02-21T17:21:29 ICT" duration-ms="4689" status="FAIL">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[8453234]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[UKsjsdW@123]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Uiii, có lỗi rồi. Vui lòng thử lại sau]]>
+              </value>
+            </param>
+          </params>
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[The following asserts failed:
+Thông báo lỗi đăng nhập không đúng expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: The following asserts failed:
+Thông báo lỗi đăng nhập không đúng expected [true] but found [false]
+at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:46)
+at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:30)
+at TestCase.TestCaseLogin.TestLoginFail_AccountLengthLessThan8(TestCaseLogin.java:135)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:739)
+at org.testng.TestRunner.run(TestRunner.java:614)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestLoginFail_AccountLengthLessThan8 -->
+        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:21:29 ICT" name="TearDown" finished-at="2025-02-21T17:21:32 ICT" duration-ms="2570" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TearDown -->
+        <test-method is-config="true" signature="afterClass()[pri:0, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:21:32 ICT" name="afterClass" finished-at="2025-02-21T17:21:34 ICT" duration-ms="2015" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterClass -->

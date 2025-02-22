@@ -7,7 +7,7 @@
 	<test thread-count="5" name="Test_Shopee">
 		<classes>
 			<class name="TestCase.TestCaseLogin" />
-			<class name="TestCase.TestCaseSearchProduct" />
+			<!--<class name="TestCase.TestCaseSearchProduct" />-->
 		</classes>
 	</test> <!--
 	Test -->

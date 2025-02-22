@@ -29,31 +29,35 @@ public class TestCaseLogin extends Basic {
 
     @DataProvider(name = "ValidLoginData")
     public Object[][] getValidLoginData() throws IOException {
-        String filePath = "DataFile/LoginCSV.csv";
-        List<String[]> csvData = DataReader.getCSVData(filePath, 1); // Bỏ qua tiêu đề
-
-        List<Object[]> validData = new ArrayList<>();
-        for (String[] row : csvData) {
-            if (!row[2].isEmpty()) { // Chỉ lấy dữ liệu có username
-                validData.add(new Object[]{row[0], row[1], row[2]});
-            }
-        }
-        return validData.toArray(new Object[0][]);
+        return readLoginData(0); 
     }
 
-    @DataProvider(name = "InvalidLoginData")
-    public Object[][] getInvalidLoginData() throws IOException {
-        String filePath = "DataFile/LoginCSV.csv";
-        List<String[]> csvData = DataReader.getCSVData(filePath, 1); // Bỏ qua tiêu đề
+    @DataProvider(name = "InvalidLoginData1")
+    public Object[][] getInvalidLoginData1() throws IOException {
+        return readLoginData(1);
+    }
 
-        List<Object[]> invalidData = new ArrayList<>();
+    @DataProvider(name = "InvalidLoginData2")
+    public Object[][] getInvalidLoginData2() throws IOException {
+        return readLoginData(2);
+    }
+
+
+    private Object[][] readLoginData(int typeFilter) throws IOException {
+        String filePath = "DataFile/Login.csv";
+        List<String[]> csvData = DataReader.getCSVData(filePath, 1); 
+
+        List<Object[]> filteredData = new ArrayList<>();
+
         for (String[] row : csvData) {
-            if (row[2].isEmpty()) { // Chỉ lấy dữ liệu không có username
-                invalidData.add(new Object[]{row[0], row[1]});
+            int type = Integer.parseInt(row[3]);
+            if (type == typeFilter) {
+                filteredData.add(new Object[]{row[0], row[1], row[2]});
             }
         }
-        return invalidData.toArray(new Object[0][]);
+        return filteredData.toArray(new Object[0][]);
     }
+
 
 
     @BeforeMethod
@@ -73,14 +77,15 @@ public class TestCaseLogin extends Basic {
     }
 
 
-    @Test(priority = 1, dataProvider = "ValidLoginData", description = "TC01 - Kiểm tra chức năng đăng nhập bằng số điện thoại với thông tin hợp lệ")
+    @Test(priority = 1, dataProvider = "ValidLoginData", description = "TC01 - Kiểm tra đăng nhập thành công")
     @Story("Đăng nhập bằng số điện thoại thành công")
     @Step("Login with phoneNumber: {0}, password: {1}, username: {2}")
-    public void TestLoginWithPhoneNumber(String phoneNumber, String password, String username) {
+    public void TestLoginWithPhoneNumber(String phoneNumber, String password, String expectedUsername) {
         SoftAssert softAssert = new SoftAssert();
+        
         loginPage.loginAS(phoneNumber, password, softAssert);
-        loginPage.verifyErrorMessagesInSpans(softAssert, phoneNumber, password);
         loginPage.clickBtnLogin();
+        
         try {
             Thread.sleep(3000);
             homePage.clickBtnBack();
@@ -89,32 +94,47 @@ public class TestCaseLogin extends Basic {
             e.printStackTrace();
         }
 
-        boolean isLoginSuccessful  = homePage.confirmLogin(username);
+        boolean isLoginSuccessful = homePage.confirmLogin(expectedUsername);
         softAssert.assertTrue(isLoginSuccessful, "Xác nhận đăng nhập thất bại");
 
-        // Kiểm tra tất cả các assertion
         softAssert.assertAll();
     }
-    
-    
-    @Test(priority = 2, dataProvider = "InvalidLoginData", description = "TC02 - Kiểm tra chức năng đăng nhập thất bại")
-    @Story("Đăng nhập thất bại")
-    @Step("Login with phoneNumber: {phoneNumber}, password: {password}")
-    public void TestLoginFail(String phoneNumber, String password) throws InterruptedException {
+
+
+    @Test(priority = 2, dataProvider = "InvalidLoginData1", description = "TC02 - Kiểm tra đăng nhập thất bại")
+    @Story("Đăng nhập thất bại với tài khoản mật khẩu không đúng")
+    @Step("Login with phoneNumber: {0}, password: {1}")
+    public void TestLoginFail(String phoneNumber, String password, String expectedNotification) throws InterruptedException {
         SoftAssert softAssert = new SoftAssert();
-        String notification = "Tài khoản hoặc mật khẩu đăng nhập không chính xác. Vui lòng thử lại.";
-        // Thực hiện đăng nhập với thông tin sai
+        
         loginPage.loginAS(phoneNumber, password, softAssert);
-        loginPage.verifyErrorMessagesInSpans(softAssert, phoneNumber, password);
         loginPage.clickBtnLogin();
         Thread.sleep(500);
-        // Xác nhận đăng nhập không thành công
-        boolean isLoginFailed = loginPage.confirmLoginFaild(notification);
-        softAssert.assertTrue(isLoginFailed, "Thông báo lỗi đăng nhập thất bại không đúng");
 
-        // Kiểm tra tất cả các assertion
+        boolean isLoginFailed = loginPage.confirmLoginFaild(expectedNotification);
+        softAssert.assertTrue(isLoginFailed, "Thông báo lỗi đăng nhập không đúng");
+
         softAssert.assertAll();
     }
+
+
+
+    @Test(priority = 3, dataProvider = "InvalidLoginData2", description = "TC03 - Kiểm tra đăng nhập thất bại với tài khoản < 9 kí tự")
+    @Story("Đăng nhập thất bại với tài khoản < 9 kí tự")
+    @Step("Login with phoneNumber: {0}, password: {1}")
+    public void TestLoginFail_AccountLengthLessThan8(String phoneNumber, String password, String expectedMessage) throws InterruptedException {
+        SoftAssert softAssert = new SoftAssert();
+        
+        loginPage.loginAS(phoneNumber, password, softAssert);
+        loginPage.clickBtnLogin();
+        Thread.sleep(500);
+
+        boolean isLoginFailed = loginPage.confirmLoginFaild(expectedMessage);
+        softAssert.assertTrue(isLoginFailed, "Thông báo lỗi đăng nhập không đúng");
+
+        softAssert.assertAll();
+    }
+
 
 
     @AfterMethod

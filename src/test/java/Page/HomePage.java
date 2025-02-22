@@ -21,7 +21,6 @@ import io.qameta.allure.Step;
 public class HomePage {
 	private AndroidDriver driver;
 	private WebDriverWait wait;
-    private Actions ac;
     
     @AndroidFindBy(id = "com.shopee.vn:id/btn")
     WebElement btnStart;
@@ -41,6 +40,23 @@ public class HomePage {
     @AndroidFindBy(id = "com.shopee.vn:id/search_icon")
     WebElement iconSearch;
     
+    @AndroidFindBy(uiAutomator = "new UiSelector().className(\"android.widget.ImageView\").instance(1)")
+    WebElement btnGoToShop;
+    
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Sản phẩm của tôi\")")
+    WebElement btnMyProduct;
+    
+    @AndroidFindBy(uiAutomator = "add_new_product_button")
+    WebElement btnAddProduct;
+    
+    public HomePage(AndroidDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+    }
+    
+    
+    
     public HomePage clickBtnStart() {
     	try {
 			Thread.sleep(3000);
@@ -52,19 +68,12 @@ public class HomePage {
     	return this;
     }
     
-    public HomePage(AndroidDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        ac = new Actions(driver);
-        PageFactory.initElements(new AppiumFieldDecorator(driver), this);
-    }
-    
+
     public HomePage clickBtnMe() {
     	wait.until(ExpectedConditions.elementToBeClickable(btnMe)).click();
 		return this;
     }
     
-
     
     public HomePage clickbtnLogin() {
     	wait.until(ExpectedConditions.elementToBeClickable(btnLogin)).click();
@@ -81,9 +90,34 @@ public class HomePage {
     	wait.until(ExpectedConditions.elementToBeClickable(btnBack)).click();
     	return this;
     }
+    
+    public HomePage clickBtnGoToShop() {
+    	wait.until(ExpectedConditions.elementToBeClickable(btnGoToShop)).click();
+    	return this;
+    }
+    
+    public HomePage clickBtnMyProduct() {
+    	wait.until(ExpectedConditions.elementToBeClickable(btnMyProduct)).click();
+    	return this;
+    }
+    
+    public HomePage clickBtnAddNewProduct() {
+    	wait.until(ExpectedConditions.elementToBeClickable(btnAddProduct)).click();
+    	return this;
+    }
+    
+    
+    
     public HomePage clickLoginAS() {
     	clickBtnMe();
     	return clickbtnLogin();
+    }
+    
+    public HomePage clickAddNewProductAS() {
+    	clickBtnMe();
+    	clickBtnGoToShop();
+    	clickBtnMyProduct();
+    	return clickBtnAddNewProduct();
     }
     
     @Step("Kiểm tra kết quả đăng nhập")

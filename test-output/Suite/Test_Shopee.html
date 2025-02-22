@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Test_Shopee</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>4/0/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>1/2/0</td>
 </tr><tr>
-<td>Started on:</td><td>Wed Feb 19 11:19:14 ICT 2025</td>
+<td>Started on:</td><td>Fri Feb 21 17:18:45 ICT 2025</td>
 </tr>
-<tr><td>Total time:</td><td>309 seconds (309528 ms)</td>
+<tr><td>Total time:</td><td>168 seconds (168719 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -67,6 +67,101 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td><b>Attribute(s)</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='TestCase.TestCaseLogin.TestLoginFail_AccountLengthLessThan8()'><b>TestLoginFail_AccountLengthLessThan8</b><br>Test class: TestCase.TestCaseLogin<br>Test method: TC03 - Kiểm tra đăng nhập thất bại với tài khoản < 9 kí tự<br>Parameters: 8453234, UKsjsdW@123, Uiii, có lỗi rồi. Vui lòng thử lại sau</td>
+<td><div><pre>java.lang.AssertionError: The following asserts failed:
+	Thông báo lỗi đăng nhập không đúng expected [true] but found [false]
+	at TestCase.TestCaseLogin.TestLoginFail_AccountLengthLessThan8(TestCaseLogin.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+... Removed 29 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1899938605", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1899938605'><pre>java.lang.AssertionError: The following asserts failed:
+	Thông báo lỗi đăng nhập không đúng expected [true] but found [false]
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:46)
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:30)
+	at TestCase.TestCaseLogin.TestLoginFail_AccountLengthLessThan8(TestCaseLogin.java:135)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:739)
+	at org.testng.TestRunner.run(TestRunner.java:614)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+	at org.testng.TestNG.runSuites(TestNG.java:1112)
+	at org.testng.TestNG.run(TestNG.java:1079)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+</pre></div></td>
+<td>4</td>
+<td>TestCase.TestCaseLogin@32c726ee</td></tr>
+<tr>
+<td title='TestCase.TestCaseLogin.TestLoginFail()'><b>TestLoginFail</b><br>Test class: TestCase.TestCaseLogin<br>Test method: TC02 - Kiểm tra đăng nhập thất bại<br>Parameters: 983495935, UKsjsdW@123, Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.</td>
+<td><div><pre>java.lang.AssertionError: The following asserts failed:
+	Thông báo lỗi đăng nhập không đúng expected [true] but found [false]
+	at TestCase.TestCaseLogin.TestLoginFail(TestCaseLogin.java:117)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+... Removed 29 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1498259207", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1498259207'><pre>java.lang.AssertionError: The following asserts failed:
+	Thông báo lỗi đăng nhập không đúng expected [true] but found [false]
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:46)
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:30)
+	at TestCase.TestCaseLogin.TestLoginFail(TestCaseLogin.java:117)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:739)
+	at org.testng.TestRunner.run(TestRunner.java:614)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+	at org.testng.TestNG.runSuites(TestNG.java:1112)
+	at org.testng.TestNG.run(TestNG.java:1079)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+</pre></div></td>
+<td>5</td>
+<td>TestCase.TestCaseLogin@32c726ee</td></tr>
+</table><p>
 <table width='100%' border='1' class='invocation-passed'>
 <tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
@@ -76,25 +171,10 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='TestCase.TestCaseLogin.TestLoginWithPhoneNumber()'><b>TestLoginWithPhoneNumber</b><br>Test class: TestCase.TestCaseLogin<br>Test method: TC01 - Kiểm tra chức năng đăng nhập bằng số điện thoại với thông tin hợp lệ<br>Parameters: 346991600, Quang0511@, 0346991600quang</td>
+<td title='TestCase.TestCaseLogin.TestLoginWithPhoneNumber()'><b>TestLoginWithPhoneNumber</b><br>Test class: TestCase.TestCaseLogin<br>Test method: TC01 - Kiểm tra đăng nhập thành công<br>Parameters: 346991600, Quang0511@, 0346991600quang</td>
 <td></td>
-<td>13</td>
-<td>TestCase.TestCaseLogin@22f31dec</td></tr>
-<tr>
-<td title='TestCase.TestCaseSearchProduct.TestSearchProduct()'><b>TestSearchProduct</b><br>Test class: TestCase.TestCaseSearchProduct<br>Test method: TC03 - Kiểm tra chức năng tìm kiếm<br>Parameters: Iphone</td>
-<td></td>
-<td>51</td>
-<td>TestCase.TestCaseSearchProduct@5460cf3a</td></tr>
-<tr>
-<td title='TestCase.TestCaseSearchProduct.TestSearchProduct()'><b>TestSearchProduct</b><br>Test class: TestCase.TestCaseSearchProduct<br>Test method: TC03 - Kiểm tra chức năng tìm kiếm<br>Parameters: Áo Thun</td>
-<td></td>
-<td>60</td>
-<td>TestCase.TestCaseSearchProduct@5460cf3a</td></tr>
-<tr>
-<td title='TestCase.TestCaseLogin.TestLoginFail()'><b>TestLoginFail</b><br>Test class: TestCase.TestCaseLogin<br>Test method: TC02 - Kiểm tra chức năng đăng nhập thất bại<br>Parameters: 839394893, ABCYHX2@</td>
-<td></td>
-<td>23</td>
-<td>TestCase.TestCaseLogin@22f31dec</td></tr>
+<td>45</td>
+<td>TestCase.TestCaseLogin@32c726ee</td></tr>
 </table><p>
 </body>
 </html>
