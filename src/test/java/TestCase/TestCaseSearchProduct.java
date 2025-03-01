@@ -13,6 +13,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import com.aventstack.extentreports.util.Assert;
+
 import Base.Basic;
 import Data.DataReader;
 import Page.HomePage;
@@ -28,7 +30,7 @@ public class TestCaseSearchProduct extends Basic{
     SearchPage searchPage;
     
     @DataProvider(name = "ProductData")
-    public Object[][] getLoginData() throws IOException {
+    public Object[][] getProductData() throws IOException {
         // Đọc dữ liệu từ file CSV
         String filePath = "DataFile/Product.csv"; 
         List<String[]> csvData = DataReader.getCSVData(filePath, 1);
@@ -39,6 +41,23 @@ public class TestCaseSearchProduct extends Basic{
         return data;
     }
     
+    @DataProvider(name = "ProducFiltertData")
+    public Object[][] getProducFiltertData() throws IOException {
+        String filePath = "DataFile/FilterPriceRange.csv"; 
+        List<String[]> csvData = DataReader.getCSVData(filePath, 1);
+        Object[][] data = new Object[csvData.size()][3];
+
+        for (int i = 0; i < csvData.size(); i++) {
+            data[i][0] = csvData.get(i)[0].trim(); // Loại bỏ khoảng trắng
+            data[i][1] = csvData.get(i)[1].trim();
+            data[i][2] = csvData.get(i)[2].trim();
+
+            // Debug dữ liệu đọc từ CSV
+            System.out.println("Dòng " + (i + 1) + ": " + data[i][0] + " | Min: " + data[i][1] + " | Max: " + data[i][2]);
+        }
+        return data;
+    }
+
     
 	 @BeforeMethod
 	    public void SetUp() throws MalformedURLException {
@@ -58,10 +77,9 @@ public class TestCaseSearchProduct extends Basic{
 	 
 	 
 	 
-	 @Test(priority = 1, dataProvider = "ProductData", description = "TC04 - Kiểm tra chức năng tìm kiếm")
-	    @Story("Tìm kiếm sản phẩm thành công")
-	    @Step("Tìm kiếm với tên sản phẩm: {0}")
-	    public void TestSearchProduct(String nameProduct) throws InterruptedException {
+	 @Test(priority = 1, dataProvider = "ProductData", description = "TC05 - Kiểm tra chức năng tìm kiếm")
+	    @Story("Tìm kiếm sản phẩm với tên thành công")
+	    public void TestSearchProduct(String nameProduct) throws InterruptedException, IOException {
 	        SoftAssert softAssert = new SoftAssert();
 
 	        searchPage.sendKeyInputSearch(nameProduct);
@@ -70,11 +88,36 @@ public class TestCaseSearchProduct extends Basic{
 	        
 	        Thread.sleep(2000);
 	        boolean result = searchPage.verifyProductsContainSearchName(nameProduct);
-	        softAssert.assertTrue(result, "Không tìm thấy sản phẩm chứa tên: " + nameProduct);
-	        
+	        softAssert.assertTrue(result, "Không tìm thấy sản phẩm nào khớp với từ khóa tìm kiếm: " + nameProduct);
 	        // Kiểm tra tất cả các assertion
 	        softAssert.assertAll();
 	    }
+	 
+	 
+	 @Test(priority = 2, dataProvider = "ProducFiltertData", description = "TC06 - Kiểm tra chức năng lọc theo khoảng giá")
+	 @Story("Lọc theo khoảng giá {1} - {2}")
+	 public void TestFilterByPrice(String productName, String min, String max) throws InterruptedException {
+	     SoftAssert softAssert = new SoftAssert();
+
+	     searchPage.sendKeyInputSearch(productName);
+	     
+	     searchPage.clickBtnSearch();
+	     
+	     searchPage.clickFilter();
+	     
+	     searchPage.filterAS(min, max);
+
+	     // Chờ dữ liệu tải (nếu cần)
+	     Thread.sleep(2000);
+
+	     // Kiểm tra sản phẩm có đúng khoảng giá không
+	     boolean isPriceValid = searchPage.verifyProductsWithinPriceRange(Integer.parseInt(min), Integer.parseInt(max));
+
+	     softAssert.assertTrue(isPriceValid, "Lỗi: Có sản phẩm không nằm trong khoảng giá mong muốn!");
+
+	     softAssert.assertAll();
+	 }
+
 	 
 //	 @Test(priority = 2,description = "TC04 - Kiểm tra chức năng lọc theo giá")
 //	    @Story("Lọc sản phẩm thành công")
@@ -87,13 +130,12 @@ public class TestCaseSearchProduct extends Basic{
 //	      
 //	    }
 	 @AfterMethod
-	    public void TearDown() throws InterruptedException {
-	        Thread.sleep(2000);
-	        if (driver != null) {
-	            System.out.println("Đóng hoàn toàn Appium driver...");
-	            driver.quit(); 
-	        }
-	    }
+	 public void TearDown() throws InterruptedException {
+	     Thread.sleep(2000);
+	     if (driver != null) {
+	         driver.quit();
+	     }
+	 } 
 }
 
 

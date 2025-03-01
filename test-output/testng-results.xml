@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="3" passed="1" failed="2" skipped="0">
+<testng-results ignored="0" total="4" passed="2" failed="0" skipped="2">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-02-21T17:18:45 ICT" name="Suite" finished-at="2025-02-21T17:21:34 ICT" duration-ms="168719">
+  <suite started-at="2025-03-01T18:13:13 ICT" name="Suite" finished-at="2025-03-01T18:15:15 ICT" duration-ms="122657">
     <groups>
     </groups>
-    <test started-at="2025-02-21T17:18:45 ICT" name="Test_Shopee" finished-at="2025-02-21T17:21:34 ICT" duration-ms="168719">
+    <test started-at="2025-03-01T18:13:13 ICT" name="Test_Shopee" finished-at="2025-03-01T18:15:15 ICT" duration-ms="122657">
       <class name="TestCase.TestCaseLogin">
-        <test-method is-config="true" signature="SetUp()[pri:0, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:18:45 ICT" name="SetUp" finished-at="2025-02-21T17:19:22 ICT" duration-ms="36512" status="PASS">
+        <test-method is-config="true" signature="SetUp()[pri:0, instance:TestCase.TestCaseLogin@c94fd30]" started-at="2025-03-01T18:13:13 ICT" name="SetUp" finished-at="2025-03-01T18:13:45 ICT" duration-ms="32169" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SetUp -->
-        <test-method signature="TestLoginWithPhoneNumber(java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:19:22 ICT" name="TestLoginWithPhoneNumber" description="TC01 - Kiểm tra đăng nhập thành công" data-provider="ValidLoginData" finished-at="2025-02-21T17:20:08 ICT" duration-ms="45919" status="PASS">
+        <test-method signature="TestLoginWithPhoneNumber(java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:TestCase.TestCaseLogin@c94fd30]" started-at="2025-03-01T18:13:45 ICT" name="TestLoginWithPhoneNumber" description="TC01 - Kiểm tra đăng nhập thành công bằng số điện thoại" data-provider="ValidLoginData1" finished-at="2025-03-01T18:13:59 ICT" duration-ms="13771" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -32,15 +32,118 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestLoginWithPhoneNumber -->
-        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:20:08 ICT" name="TearDown" finished-at="2025-02-21T17:20:11 ICT" duration-ms="2940" status="PASS">
+        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestCase.TestCaseLogin@c94fd30]" started-at="2025-03-01T18:14:00 ICT" name="TearDown" finished-at="2025-03-01T18:14:02 ICT" duration-ms="2556" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TearDown -->
-        <test-method is-config="true" signature="SetUp()[pri:0, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:20:11 ICT" name="SetUp" finished-at="2025-02-21T17:20:37 ICT" duration-ms="26146" status="PASS">
+        <test-method is-config="true" signature="SetUp()[pri:0, instance:TestCase.TestCaseLogin@c94fd30]" started-at="2025-03-01T18:14:02 ICT" name="SetUp" finished-at="2025-03-01T18:14:29 ICT" duration-ms="26859" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SetUp -->
-        <test-method signature="TestLoginFail(java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:20:37 ICT" name="TestLoginFail" description="TC02 - Kiểm tra đăng nhập thất bại" data-provider="InvalidLoginData1" finished-at="2025-02-21T17:20:43 ICT" duration-ms="5892" status="FAIL">
+        <test-method signature="TestLoginWithEmail(java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:TestCase.TestCaseLogin@c94fd30]" started-at="2025-03-01T18:14:29 ICT" name="TestLoginWithEmail" description="TC01 - Kiểm tra đăng nhập thành công bằng gmail" data-provider="ValidLoginData2" finished-at="2025-03-01T18:14:41 ICT" duration-ms="11679" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[toilaquang6@gmail.com]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Quang0511@]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[0346991600quang]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestLoginWithEmail -->
+        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestCase.TestCaseLogin@c94fd30]" started-at="2025-03-01T18:14:43 ICT" name="TearDown" finished-at="2025-03-01T18:14:45 ICT" duration-ms="2686" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TearDown -->
+        <test-method is-config="true" signature="SetUp()[pri:0, instance:TestCase.TestCaseLogin@c94fd30]" started-at="2025-03-01T18:14:45 ICT" name="SetUp" finished-at="2025-03-01T18:15:15 ICT" duration-ms="29951" status="FAIL">
+          <exception class="org.openqa.selenium.NoSuchElementException">
+            <message>
+              <![CDATA[Can't locate an element by this strategy: By.chained({AppiumBy.androidUIAutomator: new UiSelector().text("Tôi")})]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchElementException: Can't locate an element by this strategy: By.chained({AppiumBy.androidUIAutomator: new UiSelector().text("Tôi")})
+at io.appium.java_client.pagefactory.AppiumElementLocator.findElement(AppiumElementLocator.java:166)
+at io.appium.java_client.pagefactory.interceptors.InterceptorOfASingleElement.call(InterceptorOfASingleElement.java:75)
+at io.appium.java_client.proxy.Interceptor.intercept(Interceptor.java:78)
+at org.openqa.selenium.remote.RemoteWebElement$ByteBuddy$azm5sQro.click(Unknown Source)
+at Page.HomePage.clickBtnMe(HomePage.java:90)
+at Page.HomePage.clickLoginAS(HomePage.java:171)
+at TestCase.TestCaseLogin.SetUp(TestCaseLogin.java:82)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:71)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:400)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:333)
+at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:833)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:600)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:739)
+at org.testng.TestRunner.run(TestRunner.java:614)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction@3f5156a6 (tried for 1 second(s) with 500 milliseconds interval)
+at org.openqa.selenium.support.ui.FluentWait.timeoutException(FluentWait.java:265)
+at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+at io.appium.java_client.pagefactory.AppiumElementLocator.waitFor(AppiumElementLocator.java:135)
+at io.appium.java_client.pagefactory.AppiumElementLocator.findElement(AppiumElementLocator.java:160)
+... 38 more
+Caused by: org.openqa.selenium.NoSuchElementException: Cannot locate an element using By.chained({AppiumBy.androidUIAutomator: new UiSelector().text("Tôi")})
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: '4.29.0', revision: '5fc1ec94cb'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.10'
+Driver info: driver.version: RemoteWebDriver
+at io.appium.java_client.pagefactory.bys.builder.ByChained.findElement(ByChained.java:74)
+at org.openqa.selenium.remote.ElementLocation$ElementFinder$1.findElement(ElementLocation.java:139)
+at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:368)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
+at io.appium.java_client.pagefactory.bys.ContentMappedBy.findElement(ContentMappedBy.java:54)
+at org.openqa.selenium.remote.ElementLocation$ElementFinder$1.findElement(ElementLocation.java:139)
+at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:368)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
+at io.appium.java_client.pagefactory.AppiumElementLocator.lambda$findElement$1(AppiumElementLocator.java:160)
+at io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction.apply(AppiumElementLocator.java:217)
+at io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction.apply(AppiumElementLocator.java:210)
+at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
+... 40 more
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- SetUp -->
+        <test-method signature="TestLoginFail(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:TestCase.TestCaseLogin@c94fd30]" started-at="2025-03-01T18:15:15 ICT" name="TestLoginFail" description="TC02 - Kiểm tra đăng nhập thất bại" data-provider="InvalidLoginData1" finished-at="2025-03-01T18:15:15 ICT" duration-ms="0" status="SKIP">
           <params>
             <param index="0">
               <value>
@@ -54,27 +157,33 @@
             </param>
             <param index="2">
               <value>
-                <![CDATA[Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.]]>
+                <![CDATA[Tài khoản hoặc mật khẩu đăng nhập không chính xác. Vui lòng thử lại.]]>
               </value>
             </param>
           </params>
-          <exception class="java.lang.AssertionError">
+          <exception class="org.openqa.selenium.NoSuchElementException">
             <message>
-              <![CDATA[The following asserts failed:
-Thông báo lỗi đăng nhập không đúng expected [true] but found [false]]]>
+              <![CDATA[Can't locate an element by this strategy: By.chained({AppiumBy.androidUIAutomator: new UiSelector().text("Tôi")})]]>
             </message>
             <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: The following asserts failed:
-Thông báo lỗi đăng nhập không đúng expected [true] but found [false]
-at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:46)
-at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:30)
-at TestCase.TestCaseLogin.TestLoginFail(TestCaseLogin.java:117)
+              <![CDATA[org.openqa.selenium.NoSuchElementException: Can't locate an element by this strategy: By.chained({AppiumBy.androidUIAutomator: new UiSelector().text("Tôi")})
+at io.appium.java_client.pagefactory.AppiumElementLocator.findElement(AppiumElementLocator.java:166)
+at io.appium.java_client.pagefactory.interceptors.InterceptorOfASingleElement.call(InterceptorOfASingleElement.java:75)
+at io.appium.java_client.proxy.Interceptor.intercept(Interceptor.java:78)
+at org.openqa.selenium.remote.RemoteWebElement$ByteBuddy$azm5sQro.click(Unknown Source)
+at Page.HomePage.clickBtnMe(HomePage.java:90)
+at Page.HomePage.clickLoginAS(HomePage.java:171)
+at TestCase.TestCaseLogin.SetUp(TestCaseLogin.java:82)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 at java.base/java.lang.reflect.Method.invoke(Method.java:568)
 at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
-at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:71)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:400)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:333)
+at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:833)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:600)
 at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
 at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
 at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
@@ -97,21 +206,47 @@ at org.testng.TestNG.run(TestNG.java:1079)
 at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction@3f5156a6 (tried for 1 second(s) with 500 milliseconds interval)
+at org.openqa.selenium.support.ui.FluentWait.timeoutException(FluentWait.java:265)
+at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+at io.appium.java_client.pagefactory.AppiumElementLocator.waitFor(AppiumElementLocator.java:135)
+at io.appium.java_client.pagefactory.AppiumElementLocator.findElement(AppiumElementLocator.java:160)
+... 38 more
+Caused by: org.openqa.selenium.NoSuchElementException: Cannot locate an element using By.chained({AppiumBy.androidUIAutomator: new UiSelector().text("Tôi")})
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: '4.29.0', revision: '5fc1ec94cb'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.10'
+Driver info: driver.version: RemoteWebDriver
+at io.appium.java_client.pagefactory.bys.builder.ByChained.findElement(ByChained.java:74)
+at org.openqa.selenium.remote.ElementLocation$ElementFinder$1.findElement(ElementLocation.java:139)
+at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:368)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
+at io.appium.java_client.pagefactory.bys.ContentMappedBy.findElement(ContentMappedBy.java:54)
+at org.openqa.selenium.remote.ElementLocation$ElementFinder$1.findElement(ElementLocation.java:139)
+at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:368)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
+at io.appium.java_client.pagefactory.AppiumElementLocator.lambda$findElement$1(AppiumElementLocator.java:160)
+at io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction.apply(AppiumElementLocator.java:217)
+at io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction.apply(AppiumElementLocator.java:210)
+at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
+... 40 more
 ]]>
             </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestLoginFail -->
-        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:20:43 ICT" name="TearDown" finished-at="2025-02-21T17:20:59 ICT" duration-ms="16081" status="PASS">
+        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestCase.TestCaseLogin@c94fd30]" started-at="2025-03-01T18:15:15 ICT" name="TearDown" finished-at="2025-03-01T18:15:15 ICT" duration-ms="0" status="SKIP">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TearDown -->
-        <test-method is-config="true" signature="SetUp()[pri:0, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:20:59 ICT" name="SetUp" finished-at="2025-02-21T17:21:24 ICT" duration-ms="24803" status="PASS">
+        <test-method is-config="true" signature="SetUp()[pri:0, instance:TestCase.TestCaseLogin@c94fd30]" started-at="2025-03-01T18:15:15 ICT" name="SetUp" finished-at="2025-03-01T18:15:15 ICT" duration-ms="0" status="SKIP">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SetUp -->
-        <test-method signature="TestLoginFail_AccountLengthLessThan8(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:21:24 ICT" name="TestLoginFail_AccountLengthLessThan8" description="TC03 - Kiểm tra đăng nhập thất bại với tài khoản &lt; 9 kí tự" data-provider="InvalidLoginData2" finished-at="2025-02-21T17:21:29 ICT" duration-ms="4689" status="FAIL">
+        <test-method signature="TestLoginFail_AccountLengthLessThan8(java.lang.String,java.lang.String,java.lang.String)[pri:4, instance:TestCase.TestCaseLogin@c94fd30]" started-at="2025-03-01T18:15:15 ICT" name="TestLoginFail_AccountLengthLessThan8" description="TC03 - Kiểm tra đăng nhập thất bại với tài khoản &lt; 9 kí tự" data-provider="InvalidLoginData2" finished-at="2025-03-01T18:15:15 ICT" duration-ms="0" status="SKIP">
           <params>
             <param index="0">
               <value>
@@ -125,27 +260,33 @@ at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
             </param>
             <param index="2">
               <value>
-                <![CDATA[Uiii, có lỗi rồi. Vui lòng thử lại sau]]>
+                <![CDATA[Uiiii, có lỗi rồi. Vui lòng thử lại sau]]>
               </value>
             </param>
           </params>
-          <exception class="java.lang.AssertionError">
+          <exception class="org.openqa.selenium.NoSuchElementException">
             <message>
-              <![CDATA[The following asserts failed:
-Thông báo lỗi đăng nhập không đúng expected [true] but found [false]]]>
+              <![CDATA[Can't locate an element by this strategy: By.chained({AppiumBy.androidUIAutomator: new UiSelector().text("Tôi")})]]>
             </message>
             <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: The following asserts failed:
-Thông báo lỗi đăng nhập không đúng expected [true] but found [false]
-at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:46)
-at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:30)
-at TestCase.TestCaseLogin.TestLoginFail_AccountLengthLessThan8(TestCaseLogin.java:135)
+              <![CDATA[org.openqa.selenium.NoSuchElementException: Can't locate an element by this strategy: By.chained({AppiumBy.androidUIAutomator: new UiSelector().text("Tôi")})
+at io.appium.java_client.pagefactory.AppiumElementLocator.findElement(AppiumElementLocator.java:166)
+at io.appium.java_client.pagefactory.interceptors.InterceptorOfASingleElement.call(InterceptorOfASingleElement.java:75)
+at io.appium.java_client.proxy.Interceptor.intercept(Interceptor.java:78)
+at org.openqa.selenium.remote.RemoteWebElement$ByteBuddy$azm5sQro.click(Unknown Source)
+at Page.HomePage.clickBtnMe(HomePage.java:90)
+at Page.HomePage.clickLoginAS(HomePage.java:171)
+at TestCase.TestCaseLogin.SetUp(TestCaseLogin.java:82)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 at java.base/java.lang.reflect.Method.invoke(Method.java:568)
 at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
-at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:71)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:400)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:333)
+at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:833)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:600)
 at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
 at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
 at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
@@ -168,17 +309,43 @@ at org.testng.TestNG.run(TestNG.java:1079)
 at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction@3f5156a6 (tried for 1 second(s) with 500 milliseconds interval)
+at org.openqa.selenium.support.ui.FluentWait.timeoutException(FluentWait.java:265)
+at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+at io.appium.java_client.pagefactory.AppiumElementLocator.waitFor(AppiumElementLocator.java:135)
+at io.appium.java_client.pagefactory.AppiumElementLocator.findElement(AppiumElementLocator.java:160)
+... 38 more
+Caused by: org.openqa.selenium.NoSuchElementException: Cannot locate an element using By.chained({AppiumBy.androidUIAutomator: new UiSelector().text("Tôi")})
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: '4.29.0', revision: '5fc1ec94cb'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.10'
+Driver info: driver.version: RemoteWebDriver
+at io.appium.java_client.pagefactory.bys.builder.ByChained.findElement(ByChained.java:74)
+at org.openqa.selenium.remote.ElementLocation$ElementFinder$1.findElement(ElementLocation.java:139)
+at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:368)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
+at io.appium.java_client.pagefactory.bys.ContentMappedBy.findElement(ContentMappedBy.java:54)
+at org.openqa.selenium.remote.ElementLocation$ElementFinder$1.findElement(ElementLocation.java:139)
+at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:368)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
+at io.appium.java_client.pagefactory.AppiumElementLocator.lambda$findElement$1(AppiumElementLocator.java:160)
+at io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction.apply(AppiumElementLocator.java:217)
+at io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction.apply(AppiumElementLocator.java:210)
+at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
+... 40 more
 ]]>
             </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestLoginFail_AccountLengthLessThan8 -->
-        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:21:29 ICT" name="TearDown" finished-at="2025-02-21T17:21:32 ICT" duration-ms="2570" status="PASS">
+        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestCase.TestCaseLogin@c94fd30]" started-at="2025-03-01T18:15:15 ICT" name="TearDown" finished-at="2025-03-01T18:15:15 ICT" duration-ms="0" status="SKIP">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TearDown -->
-        <test-method is-config="true" signature="afterClass()[pri:0, instance:TestCase.TestCaseLogin@32c726ee]" started-at="2025-02-21T17:21:32 ICT" name="afterClass" finished-at="2025-02-21T17:21:34 ICT" duration-ms="2015" status="PASS">
+        <test-method is-config="true" signature="afterClass()[pri:0, instance:TestCase.TestCaseLogin@c94fd30]" started-at="2025-03-01T18:15:15 ICT" name="afterClass" finished-at="2025-03-01T18:15:15 ICT" duration-ms="0" status="SKIP">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterClass -->

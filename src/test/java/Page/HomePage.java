@@ -6,6 +6,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -13,6 +14,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.qameta.allure.Allure;
@@ -31,8 +34,7 @@ public class HomePage {
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Đăng nhập\")")
     WebElement btnLogin;
     
-    @AndroidFindBy(id= "com.shopee.vn:id/home_btn")
-    WebElement btnBack;
+
     
     @AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"labelUserName\")")
     WebElement lblUserName;
@@ -40,18 +42,27 @@ public class HomePage {
     @AndroidFindBy(id = "com.shopee.vn:id/search_icon")
     WebElement iconSearch;
     
-    @AndroidFindBy(uiAutomator = "new UiSelector().className(\"android.widget.ImageView\").instance(1)")
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Shop của tôi\")")
     WebElement btnGoToShop;
     
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Sản phẩm của tôi\")")
     WebElement btnMyProduct;
     
-    @AndroidFindBy(uiAutomator = "add_new_product_button")
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Đã hiểu\")")
+    WebElement btnUnderstood;
+    
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Bỏ qua tất cả\")")
+    WebElement skipInstructions;
+    
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Đồng ý\")")
+    WebElement btnAgree;
+    
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Thêm 1 sản phẩm mới\")")
     WebElement btnAddProduct;
     
     public HomePage(AndroidDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
     
@@ -70,7 +81,13 @@ public class HomePage {
     
 
     public HomePage clickBtnMe() {
-    	wait.until(ExpectedConditions.elementToBeClickable(btnMe)).click();
+    	try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	btnMe.click();
 		return this;
     }
     
@@ -87,21 +104,63 @@ public class HomePage {
     }
     
     public HomePage clickBtnBack() {
-    	wait.until(ExpectedConditions.elementToBeClickable(btnBack)).click();
-    	return this;
+    	((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
+        return this;
     }
     
     public HomePage clickBtnGoToShop() {
+    	Allure.step("Nhấn vào mục Shop của tôi");
     	wait.until(ExpectedConditions.elementToBeClickable(btnGoToShop)).click();
     	return this;
     }
     
     public HomePage clickBtnMyProduct() {
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	Allure.step("Nhấn vào mục sản phẩm của tôi");
     	wait.until(ExpectedConditions.elementToBeClickable(btnMyProduct)).click();
     	return this;
     }
     
+    public HomePage clickSkipInstructions() {
+        WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3)); // Chờ tối đa 2s
+
+        try {
+            if (shortWait.until(ExpectedConditions.visibilityOf(btnUnderstood)).isDisplayed()) {
+                shortWait.until(ExpectedConditions.elementToBeClickable(btnUnderstood)).click();
+             
+            }
+            
+        } catch (TimeoutException e) {
+            System.out.println("btnUnderstood không xuất hiện, bỏ qua.");
+        }
+
+//        try {
+//            if (shortWait.until(ExpectedConditions.visibilityOf(skipInstructions)).isDisplayed()) {
+//                shortWait.until(ExpectedConditions.elementToBeClickable(skipInstructions)).click();
+//            }
+//        } catch (TimeoutException e) {
+//            System.out.println("skipInstructions không xuất hiện, bỏ qua.");
+//        }
+//
+//        try {
+//            if (shortWait.until(ExpectedConditions.visibilityOf(btnAgree)).isDisplayed()) {
+//                shortWait.until(ExpectedConditions.elementToBeClickable(btnAgree)).click();
+//            }
+//        } catch (TimeoutException e) {
+//            System.out.println("btnAgree không xuất hiện, bỏ qua.");
+//        }
+
+        return this;
+    }
+
+    
     public HomePage clickBtnAddNewProduct() {
+    	Allure.step("Nhấn nút thêm 1 sản phẩm mới");
     	wait.until(ExpectedConditions.elementToBeClickable(btnAddProduct)).click();
     	return this;
     }
@@ -114,10 +173,24 @@ public class HomePage {
     }
     
     public HomePage clickAddNewProductAS() {
-    	clickBtnMe();
+    	//clickBtnMe();
+    	try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	clickBtnGoToShop();
+    	clickSkipInstructions();
     	clickBtnMyProduct();
-    	return clickBtnAddNewProduct();
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	clickBtnAddNewProduct();
+    	return this;
     }
     
     @Step("Kiểm tra kết quả đăng nhập")
@@ -126,15 +199,11 @@ public class HomePage {
             wait.until(ExpectedConditions.visibilityOf(lblUserName));
             String username = lblUserName.getText();
 
-            // Chụp ảnh màn hình
-            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            Allure.addAttachment("Ảnh màn hình đăng nhập", new FileInputStream(screenshot));
-
             if (username.equals(usernameActual)) {
-                Allure.step("✅ Thành công. UserName mong đợi: " + username + " | Thực tế: " + usernameActual);
+                Allure.step("Thành công. UserName mong đợi: " + username + " | Thực tế: " + usernameActual);
                 return true;
             } else {
-                Allure.addAttachment("❌ Thông báo lỗi", "Mong đợi: " + username + " | Thực tế: " + usernameActual);
+                Allure.step("Thông báo lỗi Mong đợi: " + username + " | Thực tế: " + usernameActual);
                 return false;
             }
         } catch (Exception e) {

@@ -129,7 +129,7 @@ public class LoginPage{
                 if (result) {
                     Allure.step("Thành công. Thông báo mong đợi: " + toast + " | Thực tế: " + toastNotificationActual);
                 } else {
-                    Allure.addAttachment("Thông báo lỗi không khớp", "Mong đợi: " + toastNotificationActual + " | Thực tế: " + toast);
+                	throw new AssertionError("Thông báo lỗi không khớp.Mong đợi: " + toastNotificationActual + " | Thực tế: " + toast);
                 }
                 return result;
             } catch (Exception e) {
@@ -216,5 +216,12 @@ public class LoginPage{
         } catch (Exception e) {
             System.err.println("Lỗi khi click vào toạ độ: " + e.getMessage());
         }
+    }
+    
+    public LoginPage loginA(String phoneNumber, String passWord) {
+        sendKeyPhoneNumber(phoneNumber);
+        sendKeyPassWord(passWord);
+        clickBtnLogin();
+        return this;
     }
 }

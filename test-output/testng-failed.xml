@@ -10,9 +10,9 @@
         <methods>
           <include name="TearDown"/>
           <include name="afterClass"/>
-          <include name="TestLoginFail_AccountLengthLessThan8" invocation-numbers="0"/>
-          <include name="TestLoginFail" invocation-numbers="0"/>
+          <include name="TestLoginFail_AccountLengthLessThan8"/>
           <include name="SetUp"/>
+          <include name="TestLoginFail"/>
         </methods>
       </class> <!-- TestCase.TestCaseLogin -->
     </classes>

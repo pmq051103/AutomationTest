@@ -1,0 +1,1 @@
+{"uuid":"22309cd9-bead-48a2-a76b-cfb4c36c4c0e","name":"TestCase.TestCaseAddProduct","children":["65af4e48-0ba6-4efb-9ac0-e85906fc040e"],"befores":[],"afters":[{"name":"afterClass","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1740813638042,"stop":1740813640053}],"start":1740813348753,"stop":1740813640061}

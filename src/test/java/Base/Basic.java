@@ -34,6 +34,7 @@ public class Basic {
         options.setCapability("appPackage", "com.shopee.vn");
         options.setCapability("appActivity", "com.shopee.app.ui.home.HomeActivity_");
         options.setCapability("ignoreHiddenApiPolicyError", true);
+        options.setCapability("autoGrantPermissions", true);
         options.setCapability("noReset", false);
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), options);

@@ -25,7 +25,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite, 2 failed tests</span>
+      <span class="top-banner-font-1">1 suite</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -39,7 +39,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-Suite" class="navigator-link">
-              <span class="suite-name border-failed">Suite</span>
+              <span class="suite-name border-skipped">Suite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -92,26 +92,26 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">3 methods, 2 failed,   1 passed</span>
+                    <span class="method-stats">4 methods,  2 skipped,  2 passed</span>
                   </li>
                   <li>
-                    <span class="method-list-title failed">Failed methods</span>
-                    <span class="show-or-hide-methods failed">
-                      <a href="#" panel-name="suite-Suite" class="hide-methods failed suite-Suite"> (hide)</a> <!-- hide-methods failed suite-Suite -->
-                      <a href="#" panel-name="suite-Suite" class="show-methods failed suite-Suite"> (show)</a> <!-- show-methods failed suite-Suite -->
+                    <span class="method-list-title skipped">Skipped methods</span>
+                    <span class="show-or-hide-methods skipped">
+                      <a href="#" panel-name="suite-Suite" class="hide-methods skipped suite-Suite"> (hide)</a> <!-- hide-methods skipped suite-Suite -->
+                      <a href="#" panel-name="suite-Suite" class="show-methods skipped suite-Suite"> (show)</a> <!-- show-methods skipped suite-Suite -->
                     </span>
-                    <div class="method-list-content failed suite-Suite">
+                    <div class="method-list-content skipped suite-Suite">
                       <span>
-                        <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="TestCase.TestCaseLogin" class="method navigator-link" hash-for-method="TestLoginFail(983495935, UKsjsdW@123, Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.)">TestLoginFail(983495935, UKsjsdW@123, Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.)</a> <!-- method navigator-link -->
+                        <img src="skipped.png" width="3%"/>
+                        <a href="#" panel-name="suite-Suite" title="TestCase.TestCaseLogin" class="method navigator-link" hash-for-method="TestLoginFail(983495935, UKsjsdW@123, Tài khoản hoặc mật khẩu đăng nhập không chính xác. Vui lòng thử lại.)">TestLoginFail(983495935, UKsjsdW@123, Tài khoản hoặc mật khẩu đăng nhập không chính xác. Vui lòng thử lại.)</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                       <span>
-                        <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="TestCase.TestCaseLogin" class="method navigator-link" hash-for-method="TestLoginFail_AccountLengthLessThan8(8453234, UKsjsdW@123, Uiii, có lỗi rồi. Vui lòng thử lại sau)">TestLoginFail_AccountLengthLessThan8(8453234, UKsjsdW@123, Uiii, có lỗi rồi. Vui lòng thử lại sau)</a> <!-- method navigator-link -->
+                        <img src="skipped.png" width="3%"/>
+                        <a href="#" panel-name="suite-Suite" title="TestCase.TestCaseLogin" class="method navigator-link" hash-for-method="TestLoginFail_AccountLengthLessThan8(8453234, UKsjsdW@123, Uiiii, có lỗi rồi. Vui lòng thử lại sau)">TestLoginFail_AccountLengthLessThan8(8453234, UKsjsdW@123, Uiiii, có lỗi rồi. Vui lòng thử lại sau)</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                    </div> <!-- method-list-content failed suite-Suite -->
+                    </div> <!-- method-list-content skipped suite-Suite -->
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -120,6 +120,11 @@
                       <a href="#" panel-name="suite-Suite" class="show-methods passed suite-Suite"> (show)</a> <!-- show-methods passed suite-Suite -->
                     </span>
                     <div class="method-list-content passed suite-Suite">
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Suite" title="TestCase.TestCaseLogin" class="method navigator-link" hash-for-method="TestLoginWithEmail(toilaquang6@gmail.com, Quang0511@, 0346991600quang)">TestLoginWithEmail(toilaquang6@gmail.com, Quang0511@, 0346991600quang)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
                       <span>
                         <img src="passed.png" width="3%"/>
                         <a href="#" panel-name="suite-Suite" title="TestCase.TestCaseLogin" class="method navigator-link" hash-for-method="TestLoginWithPhoneNumber(346991600, Quang0511@, 0346991600quang)">TestLoginWithPhoneNumber(346991600, Quang0511@, 0346991600quang)</a> <!-- method navigator-link -->
@@ -137,23 +142,54 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-Suite" class="panel Suite">
-          <div class="suite-Suite-class-failed">
+          <div class="suite-Suite-class-skipped">
             <div class="main-panel-header rounded-window-top">
-              <img src="failed.png"/>
+              <img src="skipped.png"/>
               <span class="class-name">TestCase.TestCaseLogin</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="TestLoginFail(983495935, UKsjsdW@123, Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.)">
-                  </a> <!-- TestLoginFail(983495935, UKsjsdW@123, Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.) -->
+                  <a name="TestLoginFail(983495935, UKsjsdW@123, Tài khoản hoặc mật khẩu đăng nhập không chính xác. Vui lòng thử lại.)">
+                  </a> <!-- TestLoginFail(983495935, UKsjsdW@123, Tài khoản hoặc mật khẩu đăng nhập không chính xác. Vui lòng thử lại.) -->
                   <span class="method-name">TestLoginFail</span>
-                  <span class="parameters">(983495935,UKsjsdW@123,Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.)</span>
-                  <div class="stack-trace">java.lang.AssertionError: The following asserts failed:
-	Thông báo lỗi đăng nhập không đúng expected [true] but found [false]
-	at TestCase.TestCaseLogin.TestLoginFail(TestCaseLogin.java:117)
+                  <span class="parameters">(983495935,UKsjsdW@123,Tài khoản hoặc mật khẩu đăng nhập không chính xác. Vui lòng thử lại.)</span>
+                  <div class="stack-trace">org.openqa.selenium.NoSuchElementException: Can&apos;t locate an element by this strategy: By.chained({AppiumBy.androidUIAutomator: new UiSelector().text(&quot;Tôi&quot;)})
+	at io.appium.java_client.pagefactory.AppiumElementLocator.findElement(AppiumElementLocator.java:166)
+	at io.appium.java_client.pagefactory.interceptors.InterceptorOfASingleElement.call(InterceptorOfASingleElement.java:75)
+	at io.appium.java_client.proxy.Interceptor.intercept(Interceptor.java:78)
+	at org.openqa.selenium.remote.RemoteWebElement$ByteBuddy$azm5sQro.click(Unknown Source)
+	at Page.HomePage.clickBtnMe(HomePage.java:90)
+	at Page.HomePage.clickLoginAS(HomePage.java:171)
+	at TestCase.TestCaseLogin.SetUp(TestCaseLogin.java:82)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-... Removed 29 stack frames
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction@3f5156a6 (tried for 1 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.FluentWait.timeoutException(FluentWait.java:265)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at io.appium.java_client.pagefactory.AppiumElementLocator.waitFor(AppiumElementLocator.java:135)
+	at io.appium.java_client.pagefactory.AppiumElementLocator.findElement(AppiumElementLocator.java:160)
+	... 38 more
+Caused by: org.openqa.selenium.NoSuchElementException: Cannot locate an element using By.chained({AppiumBy.androidUIAutomator: new UiSelector().text(&quot;Tôi&quot;)})
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: &apos;4.29.0&apos;, revision: &apos;5fc1ec94cb&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.10&apos;
+Driver info: driver.version: RemoteWebDriver
+	at io.appium.java_client.pagefactory.bys.builder.ByChained.findElement(ByChained.java:74)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$1.findElement(ElementLocation.java:139)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:368)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
+	at io.appium.java_client.pagefactory.bys.ContentMappedBy.findElement(ContentMappedBy.java:54)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$1.findElement(ElementLocation.java:139)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:368)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
+	at io.appium.java_client.pagefactory.AppiumElementLocator.lambda$findElement$1(AppiumElementLocator.java:160)
+	at io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction.apply(AppiumElementLocator.java:217)
+	at io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction.apply(AppiumElementLocator.java:210)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
+	... 40 more
+... Removed 31 stack frames
 </div> <!-- stack-trace -->
                   <em>
 (TC02 - Kiểm tra đăng nhập thất bại)                  </em>
@@ -161,22 +197,53 @@
               </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
-                  <a name="TestLoginFail_AccountLengthLessThan8(8453234, UKsjsdW@123, Uiii, có lỗi rồi. Vui lòng thử lại sau)">
-                  </a> <!-- TestLoginFail_AccountLengthLessThan8(8453234, UKsjsdW@123, Uiii, có lỗi rồi. Vui lòng thử lại sau) -->
+                  <a name="TestLoginFail_AccountLengthLessThan8(8453234, UKsjsdW@123, Uiiii, có lỗi rồi. Vui lòng thử lại sau)">
+                  </a> <!-- TestLoginFail_AccountLengthLessThan8(8453234, UKsjsdW@123, Uiiii, có lỗi rồi. Vui lòng thử lại sau) -->
                   <span class="method-name">TestLoginFail_AccountLengthLessThan8</span>
-                  <span class="parameters">(8453234,UKsjsdW@123,Uiii, có lỗi rồi. Vui lòng thử lại sau)</span>
-                  <div class="stack-trace">java.lang.AssertionError: The following asserts failed:
-	Thông báo lỗi đăng nhập không đúng expected [true] but found [false]
-	at TestCase.TestCaseLogin.TestLoginFail_AccountLengthLessThan8(TestCaseLogin.java:135)
+                  <span class="parameters">(8453234,UKsjsdW@123,Uiiii, có lỗi rồi. Vui lòng thử lại sau)</span>
+                  <div class="stack-trace">org.openqa.selenium.NoSuchElementException: Can&apos;t locate an element by this strategy: By.chained({AppiumBy.androidUIAutomator: new UiSelector().text(&quot;Tôi&quot;)})
+	at io.appium.java_client.pagefactory.AppiumElementLocator.findElement(AppiumElementLocator.java:166)
+	at io.appium.java_client.pagefactory.interceptors.InterceptorOfASingleElement.call(InterceptorOfASingleElement.java:75)
+	at io.appium.java_client.proxy.Interceptor.intercept(Interceptor.java:78)
+	at org.openqa.selenium.remote.RemoteWebElement$ByteBuddy$azm5sQro.click(Unknown Source)
+	at Page.HomePage.clickBtnMe(HomePage.java:90)
+	at Page.HomePage.clickLoginAS(HomePage.java:171)
+	at TestCase.TestCaseLogin.SetUp(TestCaseLogin.java:82)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-... Removed 29 stack frames
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction@3f5156a6 (tried for 1 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.FluentWait.timeoutException(FluentWait.java:265)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at io.appium.java_client.pagefactory.AppiumElementLocator.waitFor(AppiumElementLocator.java:135)
+	at io.appium.java_client.pagefactory.AppiumElementLocator.findElement(AppiumElementLocator.java:160)
+	... 38 more
+Caused by: org.openqa.selenium.NoSuchElementException: Cannot locate an element using By.chained({AppiumBy.androidUIAutomator: new UiSelector().text(&quot;Tôi&quot;)})
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: &apos;4.29.0&apos;, revision: &apos;5fc1ec94cb&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.10&apos;
+Driver info: driver.version: RemoteWebDriver
+	at io.appium.java_client.pagefactory.bys.builder.ByChained.findElement(ByChained.java:74)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$1.findElement(ElementLocation.java:139)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:368)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
+	at io.appium.java_client.pagefactory.bys.ContentMappedBy.findElement(ContentMappedBy.java:54)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$1.findElement(ElementLocation.java:139)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:368)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
+	at io.appium.java_client.pagefactory.AppiumElementLocator.lambda$findElement$1(AppiumElementLocator.java:160)
+	at io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction.apply(AppiumElementLocator.java:217)
+	at io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction.apply(AppiumElementLocator.java:210)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
+	... 40 more
+... Removed 31 stack frames
 </div> <!-- stack-trace -->
                   <em>
 (TC03 - Kiểm tra đăng nhập thất bại với tài khoản < 9 kí tự)                  </em>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-Suite-class-failed -->
+          </div> <!-- suite-Suite-class-skipped -->
           <div class="suite-Suite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
@@ -185,12 +252,22 @@
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
+                  <a name="TestLoginWithEmail(toilaquang6@gmail.com, Quang0511@, 0346991600quang)">
+                  </a> <!-- TestLoginWithEmail(toilaquang6@gmail.com, Quang0511@, 0346991600quang) -->
+                  <span class="method-name">TestLoginWithEmail</span>
+                  <span class="parameters">(toilaquang6@gmail.com,Quang0511@,0346991600quang)</span>
+                  <em>
+(TC01 - Kiểm tra đăng nhập thành công bằng gmail)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
                   <a name="TestLoginWithPhoneNumber(346991600, Quang0511@, 0346991600quang)">
                   </a> <!-- TestLoginWithPhoneNumber(346991600, Quang0511@, 0346991600quang) -->
                   <span class="method-name">TestLoginWithPhoneNumber</span>
                   <span class="parameters">(346991600,Quang0511@,0346991600quang)</span>
                   <em>
-(TC01 - Kiểm tra đăng nhập thành công)                  </em>
+(TC01 - Kiểm tra đăng nhập thành công bằng số điện thoại)                  </em>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -250,24 +327,28 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(3);
+data.addRows(4);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'TestLoginWithPhoneNumber')
 data.setCell(0, 2, 'TestCase.TestCaseLogin')
-data.setCell(0, 3, 45919);
+data.setCell(0, 3, 13771);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'TestLoginFail')
+data.setCell(1, 1, 'TestLoginWithEmail')
 data.setCell(1, 2, 'TestCase.TestCaseLogin')
-data.setCell(1, 3, 5892);
+data.setCell(1, 3, 11679);
 data.setCell(2, 0, 2)
-data.setCell(2, 1, 'TestLoginFail_AccountLengthLessThan8')
+data.setCell(2, 1, 'TestLoginFail')
 data.setCell(2, 2, 'TestCase.TestCaseLogin')
-data.setCell(2, 3, 4689);
+data.setCell(2, 3, 0);
+data.setCell(3, 0, 3)
+data.setCell(3, 1, 'TestLoginFail_AccountLengthLessThan8')
+data.setCell(3, 2, 'TestCase.TestCaseLogin')
+data.setCell(3, 3, 0);
 window.suiteTableData['Suite']= { tableData: data, tableDiv: 'times-div-Suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 56 seconds</span>
+              <span class="suite-total-time">Total running time: 25 seconds</span>
               <div id="times-div-Suite">
               </div> <!-- times-div-Suite -->
             </div> <!-- times-div -->
@@ -300,43 +381,53 @@ return data;
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">TestLoginWithPhoneNumber(346991600, Quang0511@, 0346991600quang)</span>
-                <span class="method-start">36552 ms</span>
+                <span class="method-start">32209 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">TearDown</span>
-                <span class="method-start">82481 ms</span>
+                <span class="method-start">46907 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">SetUp</span>
-                <span class="method-start">85425 ms</span>
+                <span class="method-start">49482 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <img src="failed.png">
-                </img>
-                <span class="method-name">TestLoginFail(983495935, UKsjsdW@123, Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.)</span>
-                <span class="method-start">111573 ms</span>
+                <span class="method-name">TestLoginWithEmail(toilaquang6@gmail.com, Quang0511@, 0346991600quang)</span>
+                <span class="method-start">76343 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">TearDown</span>
-                <span class="method-start">118036 ms</span>
+                <span class="method-start">89927 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">SetUp</span>
+                <span class="method-start">92613 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">TestLoginFail(983495935, UKsjsdW@123, Tài khoản hoặc mật khẩu đăng nhập không chính xác. Vui lòng thử lại.)</span>
+                <span class="method-start">122573 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">TearDown</span>
+                <span class="method-start">122579 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">SetUp</span>
-                <span class="method-start">134120 ms</span>
+                <span class="method-start">122582 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <img src="failed.png">
-                </img>
-                <span class="method-name">TestLoginFail_AccountLengthLessThan8(8453234, UKsjsdW@123, Uiii, có lỗi rồi. Vui lòng thử lại sau)</span>
-                <span class="method-start">158924 ms</span>
+                <span class="method-name">TestLoginFail_AccountLengthLessThan8(8453234, UKsjsdW@123, Uiiii, có lỗi rồi. Vui lòng thử lại sau)</span>
+                <span class="method-start">122584 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">TearDown</span>
-                <span class="method-start">164064 ms</span>
+                <span class="method-start">122590 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-class after">
                 <span class="method-name">afterClass</span>
-                <span class="method-start">166637 ms</span>
+                <span class="method-start">122593 ms</span>
               </div> <!-- configuration-class after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

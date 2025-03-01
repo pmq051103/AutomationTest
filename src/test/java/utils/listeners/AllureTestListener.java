@@ -22,6 +22,16 @@ public class AllureTestListener implements ITestListener {
     public static byte[] saveScreenshotPNG(AndroidDriver driver) {
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
+    @Attachment(value = "Ảnh chụp màn hình", type = "image/png")
+    public static byte[] captureScreenshot(AndroidDriver driver) {
+        try {
+            return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     
     @Override
@@ -31,8 +41,16 @@ public class AllureTestListener implements ITestListener {
             byte[] screenshot = saveScreenshotPNG(driver); // Chụp ảnh lỗi
             Allure.getLifecycle().addAttachment("Screenshot", "image/png", "png", screenshot); 
         }
-        saveTextLog("Test thất bại: " + iTestResult.getName());  // Ghi log lỗi
-        Allure.step("❌ Test case thất bại: " + iTestResult.getName());
+        saveTextLog("Test thất bại: " + iTestResult.getName());
+    }
+    
+    @Override
+    public void onTestSuccess(ITestResult iTestResult) {
+    	AndroidDriver driver = (AndroidDriver) iTestResult.getTestContext().getAttribute("driver");
+        if (driver != null) {
+            byte[] screenshot = captureScreenshot(driver);
+            Allure.getLifecycle().addAttachment("Screenshot", "image/png", "png", screenshot); 
+        }
     }
 
 }
