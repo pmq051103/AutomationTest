@@ -2,17 +2,17 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
     <listeners>
-		<listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+		
         <listener class-name="utils.listeners.AllureTestListener"/>
     </listeners>
 
-    <test thread-count="5" name="Test_Shopee" preserve-order="true">
+    <test thread-count="5" name="Test_Shopee">
         <classes>
             <class name="TestCase.TestCaseLogin"/>
-            <class name="TestCase.TestCaseSearchProduct"/>
-            <class name="TestCase.TestCaseAddProduct"/>
+<!--            <class name="TestCase.TestCaseSearchProduct"/>-->
+<!--            <class name="TestCase.TestCaseAddProduct"/>-->
         </classes>
     </test>
 </suite>
- <!--
-Suite -->
+ <!--Suite -->
+

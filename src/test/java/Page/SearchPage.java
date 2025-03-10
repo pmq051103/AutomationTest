@@ -141,6 +141,42 @@ public class SearchPage {
         return productList;
     }
     
+    public boolean verifyProductsContainSearchName(String searchName) throws IOException {
+        // Lấy danh sách sản phẩm mong đợi từ file CSV
+        List<String> expectedProducts = getProductListBySearchName(searchName)
+                .stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+
+        // Lấy danh sách sản phẩm thực tế trên giao diện
+        List<String> actualProducts = getAllProductsByScrolling()
+                .stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+
+        return Allure.step("**Kiểm tra danh sách sản phẩm theo từ khóa: " + searchName , () -> {
+            // Duyệt từng sản phẩm hiển thị, nếu không hợp lệ thì báo lỗi ngay
+            for (String product : actualProducts) {
+                if (!expectedProducts.contains(product)) {
+                    Allure.step("Sản phẩm không hợp lệ: " + product);
+                    return false;
+                }
+            }
+
+            // Duyệt từng sản phẩm mong đợi, nếu không có trong thực tế thì báo lỗi ngay
+            for (String product : expectedProducts) {
+                if (!actualProducts.contains(product)) {
+                    Allure.step("Sản phẩm bị thiếu: " + product);
+                    return false;
+                }
+            }
+
+            // Nếu không có lỗi, ghi log thành công
+            Allure.step("✅ **Tất cả sản phẩm hiển thị đều hợp lệ.**");
+            return true;
+        });
+    }
+
 //    //Kiểm tra xem danh sách sản phẩm có đúng với tiêu chí tìm kiếm không
 //    public boolean verifyProductsContainSearchName(String searchName) {
 //        List<String> allProducts = getAllProductsByScrolling();
@@ -159,33 +195,7 @@ public class SearchPage {
 //        });
 //    }
     
-    public boolean verifyProductsContainSearchName(String searchName) throws IOException {
-        List<String> expectedProducts = getProductListBySearchName(searchName)
-                .stream()
-                .map(String::toLowerCase)
-                .collect(Collectors.toList());
 
-        List<String> actualProducts = getAllProductsByScrolling()
-                .stream()
-                .map(String::toLowerCase)
-                .collect(Collectors.toList());
-
-        Set<String> invalidProducts = actualProducts.stream()
-                .filter(product -> !expectedProducts.contains(product)) // Sản phẩm hiển thị nhưng không có trong danh sách mong đợi
-                .collect(Collectors.toSet());
-
-        return Allure.step("Kiểm tra sản phẩm tìm kiếm: " + searchName, () -> {
-            if (!invalidProducts.isEmpty()) {
-                invalidProducts.forEach(product -> 
-                    Allure.step("Sản phẩm \"" + product + "\" KHÔNG có trong danh sách mong đợi.")
-                );
-                return false;
-            }
-
-            Allure.step("Tất cả sản phẩm hiển thị đều hợp lệ.");
-            return true; 
-        });
-    }
 
     
     private void scrollDown() {

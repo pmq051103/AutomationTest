@@ -31,6 +31,9 @@ public class HomePage {
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Tôi\")")
     WebElement btnMe;
     
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Home\")")
+    WebElement btnHome;
+    
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Đăng nhập\")")
     WebElement btnLogin;
     
@@ -94,6 +97,11 @@ public class HomePage {
     
     public HomePage clickbtnLogin() {
     	wait.until(ExpectedConditions.elementToBeClickable(btnLogin)).click();
+    	return this;
+    }
+    
+    public HomePage clickBtnHome() {
+    	wait.until(ExpectedConditions.elementToBeClickable(btnHome)).click();
     	return this;
     }
     

@@ -71,7 +71,7 @@ public class TestCaseAddProduct extends Basic{
         addProductPage.takePhotoAS();
         Allure.step("Đã chụp ảnh sản phẩm");
 	    Allure.step("Kiểm tra ảnh hiển thị", () -> {
-	        // Kiểm tra ảnh chụp có khớp với ảnh hiển thị hay không
+
 	        boolean isImageMatched = addProductPage.isImageDisplayedAfterUse(driver);
 	        softAssert.assertTrue(isImageMatched, "Kiểm tra ảnh hiển thị sau khi chụp thất bại!");
 
