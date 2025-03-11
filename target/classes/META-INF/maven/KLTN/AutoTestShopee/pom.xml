@@ -89,7 +89,6 @@
 		<!-- https://mvnrepository.com/artifact/org.openpnp/opencv -->
 
 
-
 	</dependencies>
 
 	<build>
@@ -97,36 +96,20 @@
 			defaults (may be moved to parent pom) -->
 			<plugins>
 				<plugin>
-					<groupId>io.qameta.allure</groupId>
-					<artifactId>allure-maven</artifactId>
-					<version>2.11.2</version>
-					<configuration>
-						<resultsDirectory>${project.basedir}/allure-results</resultsDirectory>
-					</configuration>
-					<executions>
-						<execution>
-							<goals>
-								<goal>report</goal>
-								<goal>aggregate</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-
-				<!-- Plugin chạy test với TestNG -->
-				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.22.2</version>
 					<configuration>
+						<argLine>-Dfile.encoding=UTF-8</argLine>
+						<resultsDirectory>${project.basedir}/allure-results</resultsDirectory>
 						<suiteXmlFiles>
-							<suiteXmlFile>testng.xml</suiteXmlFile>
+							<suiteXmlFile>src/test/java/TestCase/testng.xml</suiteXmlFile>
 						</suiteXmlFiles>
+							
+						<testFailureIgnore>true</testFailureIgnore>
 					</configuration>
 				</plugin>
-				<!-- clean lifecycle, see
-				https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
-				<plugin>
+								<plugin>
 					<artifactId>maven-clean-plugin</artifactId>
 					<version>3.1.0</version>
 				</plugin>

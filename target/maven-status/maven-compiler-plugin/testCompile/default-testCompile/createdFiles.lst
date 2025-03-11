@@ -1,0 +1,12 @@
+TestCase\TestCaseLogin.class
+Page\HomePage.class
+Base\Basic.class
+utils\extentreport\ExtentTestManager.class
+TestCase\TestCaseSearchProduct.class
+utils\listeners\Utils.class
+TestCase\TestCaseAddProduct.class
+Page\LoginPage.class
+Page\SearchPage.class
+utils\extentreport\ExtentManager.class
+Page\AddProductPage.class
+utils\listeners\AllureTestListener.class
