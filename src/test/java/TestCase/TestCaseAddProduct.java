@@ -65,13 +65,14 @@ public class TestCaseAddProduct extends Basic{
 	
 	@Test(priority = 1, description = "TC07 - Kiểm tra ảnh hiển thị sau khi chụp")
 	@Story("Kiểm tra ảnh hiển thị ")
-	public void testCheckCapturedImage() {
+	public void testCheckCapturedImage() throws InterruptedException {
 	    softAssert = new SoftAssert();
         // Chụp ảnh sản phẩm
         addProductPage.takePhotoAS();
         Allure.step("Đã chụp ảnh sản phẩm");
+        Thread.sleep(1000);
 	    Allure.step("Kiểm tra ảnh hiển thị", () -> {
-
+	    	
 	        boolean isImageMatched = addProductPage.isImageDisplayedAfterUse(driver);
 	        softAssert.assertTrue(isImageMatched, "Kiểm tra ảnh hiển thị sau khi chụp thất bại!");
 
@@ -80,34 +81,7 @@ public class TestCaseAddProduct extends Basic{
 	    softAssert.assertAll();
 	}
 	
-//	@Test(priority = 2, description = "TC06 - Kiểm tra chức năng thêm sản phẩm với tên sản phẩm < 10 kí tự")
-//	@Story("Kiểm tra nhập tên sản phẩm và lỗi hiển thị")
-//	@Step("Nhập tên sản phẩm với độ dài ngẫu nhiên từ 1 đến 9 ký tự và kiểm tra thông báo lỗi")
-//	public void testCheckProductName() {
-//	    softAssert = new SoftAssert();
-//
-//	    // Tạo tên sản phẩm ngẫu nhiên có độ dài từ 1 đến 9 ký tự
-//	    int nameLength = new Random().nextInt(9) + 1; // Random từ 1 đến 9
-//	    String shortProductName = RandomStringUtils.randomAlphabetic(nameLength);
-//	    
-//	    Allure.step("Tên sản phẩm được tạo: " + shortProductName);
-//	    
-//	    addProductPage.sendKeyProductName(shortProductName);
-//	   
-//	    int missingChars = 10 - nameLength;
-//	    String expectedErrorMessage = "Còn thiếu " + missingChars + " ký tự";
-//	    
-//	    // Kiểm tra thông báo lỗi khi nhập tên sản phẩm không hợp lệ
-//	    boolean isErrorMessageDisplayed = addProductPage.verifyProductNameErrorMessage(expectedErrorMessage);
-//	    softAssert.assertTrue(isErrorMessageDisplayed, "Thông báo lỗi không hiển thị hoặc không đúng!");
-//	    
-//	    if (isErrorMessageDisplayed) {
-//	        Allure.step("Thông báo lỗi hiển thị đúng: " + expectedErrorMessage);
-//	    } else {
-//	        Allure.step("❌ Thông báo lỗi không đúng hoặc không hiển thị!");
-//	    }	   
-//	    softAssert.assertAll();
-//	}
+
 	
 	
 	@Test(priority = 2, description = "TC08 - Kiểm tra chức năng thêm sản phẩm với tên sản phẩm < 10 kí tự và mô tả < 100 kí tự")
@@ -174,7 +148,7 @@ public class TestCaseAddProduct extends Basic{
 		softAssert = new SoftAssert();
 		addProductPage.chooseImageAS();
         addProductPage.checkCheckboxes(10);
-        Thread.sleep(500);
+        Thread.sleep(1000);
         boolean isToastCorrect = addProductPage.checkToastMessage("Bạn đã vượt quá giới hạn tối đa");
 
         Assert.assertTrue(isToastCorrect, "Toast không hiển thị đúng nội dung mong đợi!");
@@ -186,7 +160,7 @@ public class TestCaseAddProduct extends Basic{
 	public void testAddProductWithInvalidWeightZero() throws InterruptedException {
 	    softAssert = new SoftAssert();
 	    
-	    // 🔹 Khai báo dữ liệu đầu vào
+	    // Khai báo dữ liệu đầu vào
 	    String productName = "Áo len thời trang";
 	    String productDescription = "Áo len thời trang mang đến sự ấm áp và phong cách trong mùa lạnh."
 	            + " Với chất liệu mềm mại, co giãn tốt, áo len không chỉ giữ ấm mà còn tạo sự thoải mái khi mặc. "
@@ -199,10 +173,10 @@ public class TestCaseAddProduct extends Basic{
 	    String subCategory = "Áo len";
 	    String brandName = "ADAM STORE";
 
-	    // 🔹 Chụp ảnh sản phẩm
+	    // Chụp ảnh sản phẩm
 	    addProductPage.takePhotoAS();
 
-	    // 🔹 Thêm sản phẩm với cân nặng không hợp lệ
+	    // Thêm sản phẩm với cân nặng không hợp lệ
 	    addProductPage.addProductAS(productName, productDescription, productPrice, productStock, productWeight, category, subCategory, brandName);
 	    Thread.sleep(500);
 
@@ -255,7 +229,7 @@ public class TestCaseAddProduct extends Basic{
 	}
 	
 	
-	@Test(priority = 7, description = "TC11 - Kiểm tra thêm sản phẩm hiển thị với ảnh chụp & tồn kho = 0")
+	@Test(priority = 7, description = "TC13 - Kiểm tra thêm sản phẩm hiển thị với ảnh chụp & tồn kho = 0")
 	@Story("Thêm sản phẩm hiển thị với ảnh chụp từ thư viện & số lượng tồn kho bằng 0")
 	public void testAddProductWithCapturedImageAndZeroStock() throws InterruptedException {
 	    softAssert = new SoftAssert();
@@ -295,7 +269,7 @@ public class TestCaseAddProduct extends Basic{
 	    softAssert.assertAll();
 	}
 	
-	@Test(priority = 8, description = "TC12 - Kiểm tra chức năng lưu sản phẩm")
+	@Test(priority = 8, description = "TC14 - Kiểm tra chức năng lưu sản phẩm")
 	@Story("Kiểm tra chức năng lưu sản phẩm")
 	public void testSaveProductSuccessfully () throws InterruptedException {
 	    softAssert = new SoftAssert();
@@ -319,10 +293,11 @@ public class TestCaseAddProduct extends Basic{
 	    addProductPage.addProductAS(productName, productDescription, productPrice, productStock, productWeight, category, subCategory,brandName);
 	    addProductPage.clickBtnSave();
 	    addProductPage.clickBtnSave();
-	    Thread.sleep(500);
+	    Thread.sleep(1000);
 	    
 	    addProductPage.checkToastMessage("Sửa sản phẩm thành công");
-	    addProductPage.swipeHorizontally(861, 165, 366, 1500);
+	    addProductPage.swipeHorizontally(861, 165, 266, 1500);
+	    addProductPage.swipeHorizontally(861, 165, 600, 1500);
 	    
 	    Thread.sleep(2000);
 	    addProductPage.chooseOption("Đã ẩn");
@@ -330,12 +305,13 @@ public class TestCaseAddProduct extends Basic{
 	    // Vuốt màn hình để cập nhật danh sách sản phẩm
 	    
 	    addProductPage.swipeToExactPosition(582, 806, 1644, 1500);
+	    
 	    Thread.sleep(1000);
 	    // Kiểm tra sản phẩm có hiển thị không
 	    boolean isProductDisplayed = addProductPage.verifyAddNewProduct(productName);
 	    
 	    // Kiểm tra kết quả & báo lỗi nếu cần
-	    Assert.assertTrue(isProductDisplayed, "❌ Sản phẩm '" + productName + "' không hiển thị sau khi thêm!");
+	    Assert.assertTrue(isProductDisplayed, "Sản phẩm '" + productName + "' không hiển thị sau khi thêm!");
 	    
 	    softAssert.assertAll();
 	}

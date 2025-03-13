@@ -11,8 +11,7 @@
           <include name="TearDown"/>
           <include name="afterClass"/>
           <include name="SetUp"/>
-          <include name="TestFilterByPrice"/>
-          <include name="TestSearchProduct" invocation-numbers="0"/>
+          <include name="TestFilterByPrice" invocation-numbers="0"/>
         </methods>
       </class> <!-- TestCase.TestCaseSearchProduct -->
     </classes>

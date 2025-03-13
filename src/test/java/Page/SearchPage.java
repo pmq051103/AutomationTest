@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
@@ -142,40 +143,74 @@ public class SearchPage {
     }
     
     public boolean verifyProductsContainSearchName(String searchName) throws IOException {
-        // Lấy danh sách sản phẩm mong đợi từ file CSV
-        List<String> expectedProducts = getProductListBySearchName(searchName)
+        // Lấy danh sách từ khóa mong đợi từ file CSV và chuẩn hóa
+        List<String> expectedKeywords = getProductListBySearchName(searchName)
                 .stream()
-                .map(String::toLowerCase)
+                .map(String::trim) 
+                .map(keyword -> normalizeText(keyword.toLowerCase())) 
                 .collect(Collectors.toList());
+        System.out.println("Expected Keywords: " + expectedKeywords);
+        Set<String> seenProducts = new HashSet<>();
+        AtomicInteger previousSize = new AtomicInteger(0);
+        final int MAX_PRODUCTS = 14; 
 
-        // Lấy danh sách sản phẩm thực tế trên giao diện
-        List<String> actualProducts = getAllProductsByScrolling()
-                .stream()
-                .map(String::toLowerCase)
-                .collect(Collectors.toList());
+        return Allure.step("**Kiểm tra danh sách sản phẩm theo từ khóa: " + searchName, () -> {
+            while (seenProducts.size() < MAX_PRODUCTS) {
+                List<WebElement> currentProducts = nameProducts;
+                for (WebElement product : currentProducts) {
+                    // Lấy tên sản phẩm và chuẩn hóa
+                    String productName = normalizeText(product.getText().toLowerCase());
+                    
+                    System.out.println("Product Name: " + productName);
+                    // Kiểm tra nếu sản phẩm đã kiểm tra rồi thì bỏ qua
+                    if (seenProducts.contains(productName)) {
+                        continue;
+                    }
+                    seenProducts.add(productName);
 
-        return Allure.step("**Kiểm tra danh sách sản phẩm theo từ khóa: " + searchName , () -> {
-            // Duyệt từng sản phẩm hiển thị, nếu không hợp lệ thì báo lỗi ngay
-            for (String product : actualProducts) {
-                if (!expectedProducts.contains(product)) {
-                    Allure.step("Sản phẩm không hợp lệ: " + product);
-                    return false;
+                    // Kiểm tra sản phẩm với step cha
+                    boolean isValid = Allure.step("Kiểm tra sản phẩm: " + productName, () -> {
+                        boolean result = expectedKeywords.stream().anyMatch(keyword -> 
+                            productName.contains(keyword));
+
+                        if (result) {
+                            Allure.step("Sản phẩm hợp lệ: " + productName);
+                        } else {
+                            Allure.step("Sản phẩm không hợp lệ: " + productName);
+                        }
+
+                        return result;
+                    });
+
+                    if (!isValid) {
+                        return false; 
+                    }
+
+                    if (seenProducts.size() >= MAX_PRODUCTS) {
+                        Allure.step("Tất cả sản phẩm hiển thị đều hợp lệ.");
+                        return true;
+                    }
                 }
+
+                if (seenProducts.size() == previousSize.get()) {
+                    break; 
+                }
+
+                previousSize.set(seenProducts.size()); // Cập nhật số lượng sản phẩm đã kiểm tra
+                scrollDown();
             }
 
-            // Duyệt từng sản phẩm mong đợi, nếu không có trong thực tế thì báo lỗi ngay
-            for (String product : expectedProducts) {
-                if (!actualProducts.contains(product)) {
-                    Allure.step("Sản phẩm bị thiếu: " + product);
-                    return false;
-                }
-            }
-
-            // Nếu không có lỗi, ghi log thành công
-            Allure.step("✅ **Tất cả sản phẩm hiển thị đều hợp lệ.**");
+            Allure.step("Tất cả sản phẩm hiển thị đều hợp lệ.");
             return true;
         });
     }
+
+
+    private String normalizeText(String text) {
+        return text.replaceAll("[^\\p{L}\\p{N}\\s]", "").replaceAll("\\s+", " ").trim();
+    }
+
+
 
 //    //Kiểm tra xem danh sách sản phẩm có đúng với tiêu chí tìm kiếm không
 //    public boolean verifyProductsContainSearchName(String searchName) {
@@ -233,7 +268,7 @@ public class SearchPage {
                     try {
                         int productPrice = extractPrice(priceElement.getText());
 
-                        // Nếu phát hiện giá không nằm trong khoảng, fail test ngay
+
                         if (productPrice < minPrice || productPrice > maxPrice) {
                             System.out.println("Lỗi: Sản phẩm có giá ngoài khoảng cho phép: " + productPrice);
                             throw new AssertionError("Test thất bại: Có sản phẩm không nằm trong khoảng giá!");

@@ -50,7 +50,7 @@ public class AddProductPage {
 	@AndroidFindBy(id = "com.shopee.vn:id/image_preview")
 	private WebElement imageReview;
 	
-	@AndroidFindBy(xpath = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.ImageView")
+	@AndroidFindBy(xpath = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.ImageView")
 	private WebElement imageDisplay;
 	
 	@AndroidFindBy(uiAutomator  = "new UiSelector().text(\"Nhập tên sản phẩm\")")
@@ -403,7 +403,6 @@ public class AddProductPage {
     
     public boolean verifyAddNewProduct(String productName) throws InterruptedException {
     	
-    	swipeToExactPosition(582, 806, 1644, 1500);
     	Thread.sleep(2000);
     	System.out.println("Tên sản phẩm: " + productDisplay.getText());
         return Allure.step("Kiểm tra sản phẩm hiển thị sau khi thêm: " + productName, () -> {    
@@ -429,7 +428,7 @@ public class AddProductPage {
     public boolean isImageDisplayedAfterUse(AndroidDriver driver) {
         return Allure.step("Kiểm tra ảnh hiển thị sau khi chụp", () -> {
             try {
-                // 👉 Chờ ảnh hiển thị
+                
                 boolean isDisplayed = wait.until(ExpectedConditions.visibilityOf(imageDisplay)).isDisplayed();
                 if (!isDisplayed) {
                     throw new AssertionError("❌ LỖI: Ảnh không hiển thị sau khi chụp!");
@@ -548,23 +547,19 @@ public class AddProductPage {
         return Allure.step("Kiểm tra thông báo hiển thị", () -> {
             try {
             	
-                System.out.println("⏳ Đang chờ Toast hiển thị...");
                 wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.Toast")));
-                System.out.println("✅ Toast đã hiển thị!");
                 WebElement toast = driver.findElement(By.xpath("//android.widget.Toast"));
                 String actualMessage = toast.getText();
-                System.out.println("📌 Nội dung Toast: " + actualMessage);
 
                 if (actualMessage.equals(expectedMessage)) {
-                    Allure.step("✅ Toast hiển thị đúng: " + actualMessage);
+                    Allure.step("Toast hiển thị đúng: " + actualMessage);
                     return true;
                 } else {
-                    Allure.step("❌ Toast hiển thị sai! Mong đợi: " + expectedMessage + " | Thực tế: " + actualMessage);
+                    Allure.step("Toast hiển thị sai! Mong đợi: " + expectedMessage + " | Thực tế: " + actualMessage);
                     return false;
                 }
             } catch (Exception e) {
-                System.out.println("❌ Không tìm thấy Toast hoặc lỗi xảy ra: " + e.getMessage());
-                Allure.step("⚠ Không tìm thấy thông báo lỗi.");
+                Allure.step("Không tìm thấy thông báo lỗi.");
                 return false;
             }
         });

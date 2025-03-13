@@ -137,23 +137,23 @@ public class HomePage {
     public HomePage clickSkipInstructions() {
         WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3)); // Chờ tối đa 2s
 
-        try {
-            if (shortWait.until(ExpectedConditions.visibilityOf(btnUnderstood)).isDisplayed()) {
-                shortWait.until(ExpectedConditions.elementToBeClickable(btnUnderstood)).click();
-             
-            }
-            
-        } catch (TimeoutException e) {
-            System.out.println("btnUnderstood không xuất hiện, bỏ qua.");
-        }
-
 //        try {
-//            if (shortWait.until(ExpectedConditions.visibilityOf(skipInstructions)).isDisplayed()) {
-//                shortWait.until(ExpectedConditions.elementToBeClickable(skipInstructions)).click();
+//            if (shortWait.until(ExpectedConditions.visibilityOf(btnUnderstood)).isDisplayed()) {
+//                shortWait.until(ExpectedConditions.elementToBeClickable(btnUnderstood)).click();
+//             
 //            }
+//            
 //        } catch (TimeoutException e) {
-//            System.out.println("skipInstructions không xuất hiện, bỏ qua.");
+//            System.out.println("btnUnderstood không xuất hiện, bỏ qua.");
 //        }
+
+        try {
+            if (shortWait.until(ExpectedConditions.visibilityOf(skipInstructions)).isDisplayed()) {
+                shortWait.until(ExpectedConditions.elementToBeClickable(skipInstructions)).click();
+            }
+        } catch (TimeoutException e) {
+            System.out.println("skipInstructions không xuất hiện, bỏ qua.");
+        }
 //
 //        try {
 //            if (shortWait.until(ExpectedConditions.visibilityOf(btnAgree)).isDisplayed()) {

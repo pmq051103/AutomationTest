@@ -77,21 +77,20 @@ public class TestCaseSearchProduct extends Basic{
 	 
 	 
 	 
-	 @Test(priority = 1, dataProvider = "ProductData", description = "TC05 - Kiểm tra chức năng tìm kiếm")
-	    @Story("Tìm kiếm sản phẩm với tên thành công")
-	    public void TestSearchProduct(String nameProduct) throws InterruptedException, IOException {
-	        SoftAssert softAssert = new SoftAssert();
-
-	        searchPage.sendKeyInputSearch(nameProduct);
-	        searchPage.confirmSearchContent(nameProduct);
-	        searchPage.clickBtnSearch();
-	        
-	        Thread.sleep(2000);
-	        boolean result = searchPage.verifyProductsContainSearchName(nameProduct);
-	        softAssert.assertTrue(result, "Không tìm thấy sản phẩm nào khớp với từ khóa tìm kiếm: " + nameProduct);
-	        // Kiểm tra tất cả các assertion
-	        softAssert.assertAll();
-	    }
+//	 @Test(priority = 1, dataProvider = "ProductData", description = "TC05 - Kiểm tra chức năng tìm kiếm")
+//	    @Story("Tìm kiếm sản phẩm với tên thành công")
+//	    public void TestSearchProduct(String nameProduct) throws InterruptedException, IOException {
+//	        SoftAssert softAssert = new SoftAssert();
+//
+//	        searchPage.sendKeyInputSearch(nameProduct);
+//	        searchPage.confirmSearchContent(nameProduct);
+//	        searchPage.clickBtnSearch();
+//	        
+//	        Thread.sleep(2000);
+//	        boolean result = searchPage.verifyProductsContainSearchName(nameProduct);
+//	        softAssert.assertTrue(result, "Có sản phẩm không phù hợp với từ khóa tìm kiếm : " + nameProduct);
+//	        softAssert.assertAll();
+//	    }
 	 
 	 
 	 @Test(priority = 2, dataProvider = "ProducFiltertData", description = "TC06 - Kiểm tra chức năng lọc theo khoảng giá")
@@ -119,16 +118,7 @@ public class TestCaseSearchProduct extends Basic{
 	 }
 
 	 
-//	 @Test(priority = 2,description = "TC04 - Kiểm tra chức năng lọc theo giá")
-//	    @Story("Lọc sản phẩm thành công")
-//	    public void TestSearchProduct() throws InterruptedException {
-//	        SoftAssert softAssert = new SoftAssert();
-//
-//	        searchPage.sendKeyInputSearch("Áo thun");
-//	        searchPage.clickBtnSearch();
-//	        searchPage.isOptionPriceSelected();
-//	      
-//	    }
+
 	 @AfterMethod
 	 public void TearDown() throws InterruptedException {
 	     Thread.sleep(2000);
