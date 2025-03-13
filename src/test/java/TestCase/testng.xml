@@ -11,7 +11,6 @@
             <class name="TestCase.TestCaseLogin"/>
 <!--            <class name="TestCase.TestCaseSearchProduct"/>-->
 <!--            <class name="TestCase.TestCaseAddProduct"/>--> 
-<!--            <class name="TestCase.TestCaseAddProduct"/>--> 
         </classes>
     </test>
 </suite>
