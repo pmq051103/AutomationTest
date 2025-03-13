@@ -106,7 +106,7 @@ public class LoginPage{
     }
 
     
-    public void verifyErrorMessagesInSpans(SoftAssert softAssert, String expectedPhoneOrEmail, String expectedPassWord){
+    public void verifyInputValue(SoftAssert softAssert, String expectedPhoneOrEmail, String expectedPassWord){
         String span_PhoneOrEmail = inputPhoneOrEmail.getText().replaceAll("[^0-9]", "").replaceFirst("^84", "");
         String span_Password = inputPassword.getText();
     	// Kiểm tra và log từng thông báo
