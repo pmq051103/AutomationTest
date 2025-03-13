@@ -85,12 +85,12 @@ public class HomePage {
 
     public HomePage clickBtnMe() {
     	try {
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	btnMe.click();
+    	wait.until(ExpectedConditions.elementToBeClickable(btnMe)).click();
 		return this;
     }
     
