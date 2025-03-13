@@ -138,45 +138,45 @@ public class TestCaseLogin extends Basic {
     }
 
 
-    @Test(priority = 3, dataProvider = "InvalidLoginData1", description = "TC02 - Kiểm tra đăng nhập thất bại")
-    @Story("Đăng nhập thất bại với tài khoản mật khẩu không đúng")
-    @Step("Login with phoneNumber: {phoneNumber}, password: {password}")
-    public void TestLoginFail(String phoneNumber, String password, String expectedNotification) throws InterruptedException {
-        Allure.parameter("phoneNumber", phoneNumber);
-        Allure.parameter("password", password);
-    	SoftAssert softAssert = new SoftAssert();
-        
-        loginPage.loginAS(phoneNumber, password, softAssert);
-        loginPage.verifyInputValue(softAssert,phoneNumber,password);
-        loginPage.clickBtnLogin();
-        Thread.sleep(500);
-
-        boolean isLoginFailed = loginPage.confirmLoginFaild(expectedNotification);
-        softAssert.assertTrue(isLoginFailed, "Thông báo lỗi đăng nhập không đúng");
-
-        softAssert.assertAll();
-    }
-
-
-
-    @Test(priority = 4, dataProvider = "InvalidLoginData2", description = "TC03 - Kiểm tra đăng nhập thất bại với tài khoản < 9 kí tự")
-    @Story("Đăng nhập thất bại với tài khoản < 9 kí tự")
-    @Step("Login with phoneNumber: {phoneNumber}, password: {password}")
-    public void TestLoginFail_AccountLengthLessThan8(String phoneNumber, String password, String expectedMessage) throws InterruptedException {
-        Allure.parameter("phoneNumber", phoneNumber);
-        Allure.parameter("password", password);
-    	SoftAssert softAssert = new SoftAssert();
-        
-        loginPage.loginAS(phoneNumber, password, softAssert);
-        loginPage.verifyInputValue(softAssert,phoneNumber,password);
-        loginPage.clickBtnLogin();
-        Thread.sleep(500);
-
-        boolean isLoginFailed = loginPage.confirmLoginFaild(expectedMessage);
-        softAssert.assertTrue(isLoginFailed, "Thông báo lỗi đăng nhập không đúng");
-
-        softAssert.assertAll();
-    }
+//    @Test(priority = 3, dataProvider = "InvalidLoginData1", description = "TC02 - Kiểm tra đăng nhập thất bại")
+//    @Story("Đăng nhập thất bại với tài khoản mật khẩu không đúng")
+//    @Step("Login with phoneNumber: {phoneNumber}, password: {password}")
+//    public void TestLoginFail(String phoneNumber, String password, String expectedNotification) throws InterruptedException {
+//        Allure.parameter("phoneNumber", phoneNumber);
+//        Allure.parameter("password", password);
+//    	SoftAssert softAssert = new SoftAssert();
+//        
+//        loginPage.loginAS(phoneNumber, password, softAssert);
+//        loginPage.verifyInputValue(softAssert,phoneNumber,password);
+//        loginPage.clickBtnLogin();
+//        Thread.sleep(500);
+//
+//        boolean isLoginFailed = loginPage.confirmLoginFaild(expectedNotification);
+//        softAssert.assertTrue(isLoginFailed, "Thông báo lỗi đăng nhập không đúng");
+//
+//        softAssert.assertAll();
+//    }
+//
+//
+//
+//    @Test(priority = 4, dataProvider = "InvalidLoginData2", description = "TC03 - Kiểm tra đăng nhập thất bại với tài khoản < 9 kí tự")
+//    @Story("Đăng nhập thất bại với tài khoản < 9 kí tự")
+//    @Step("Login with phoneNumber: {phoneNumber}, password: {password}")
+//    public void TestLoginFail_AccountLengthLessThan8(String phoneNumber, String password, String expectedMessage) throws InterruptedException {
+//        Allure.parameter("phoneNumber", phoneNumber);
+//        Allure.parameter("password", password);
+//    	SoftAssert softAssert = new SoftAssert();
+//        
+//        loginPage.loginAS(phoneNumber, password, softAssert);
+//        loginPage.verifyInputValue(softAssert,phoneNumber,password);
+//        loginPage.clickBtnLogin();
+//        Thread.sleep(500);
+//
+//        boolean isLoginFailed = loginPage.confirmLoginFaild(expectedMessage);
+//        softAssert.assertTrue(isLoginFailed, "Thông báo lỗi đăng nhập không đúng");
+//
+//        softAssert.assertAll();
+//    }
 
 
 

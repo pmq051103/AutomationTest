@@ -107,7 +107,14 @@ public class LoginPage{
 
     
     public void verifyInputValue(SoftAssert softAssert, String expectedPhoneOrEmail, String expectedPassWord){
-        String span_PhoneOrEmail = inputPhoneOrEmail.getText().replaceAll("[^0-9]", "").replaceAll("\\(\\+84\\)\\s*", "").replaceAll("\\s+", "");
+    	 String inputValue = inputPhoneOrEmail.getText();
+
+    	    // Nếu là số điện thoại (có chứa số) thì xử lý, nếu không thì giữ nguyên (email)
+    	    String span_PhoneOrEmail = inputValue.matches("^.*\\d.*$") 
+    	                                ? inputValue.replaceAll("\\(\\+84\\)", "") // Xóa (+84) nếu có
+    	                                            .replaceAll("\\s+", "")        // Xóa khoảng trắng sau cùng
+    	                                : inputValue;
+    	    
         String span_Password = inputPassword.getText();
     	// Kiểm tra và log từng thông báo
     	checkInputValue("Phone Or Email", span_PhoneOrEmail, expectedPhoneOrEmail, softAssert);
