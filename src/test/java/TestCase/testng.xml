@@ -3,8 +3,7 @@
 <suite name="Suite">
     <listeners>		
         <listener class-name="utils.listeners.AllureTestListener"/>
-    </listeners>
-    
+    </listeners>  
     <test thread-count="5" name="Test_Shopee">
         <classes>
             <class name="TestCase.TestCaseLogin"/>
