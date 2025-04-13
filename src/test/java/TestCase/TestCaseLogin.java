@@ -78,14 +78,13 @@ public class TestCaseLogin extends Basic {
         ITestContext context = Reporter.getCurrentTestResult().getTestContext();
         context.setAttribute("driver", driver);
 
-        homePage.clickBtnStart();
+        homePage.clickBtnBack();
         homePage.clickLoginAS();
     }
 
 
-    @Test(priority = 1, dataProvider = "ValidLoginData1", description = "TC01 - Kiểm tra đăng nhập thành công bằng số điện thoại")
+    @Test(priority = 1, dataProvider = "ValidLoginData1", description = "TC01 - Xác minh chức năng đăng nhập thành công bằng số điện thoại")
     @Story("Đăng nhập bằng số điện thoại thành công")
-    @Step("Login with phoneNumber: {phoneNumber}, password: {password}, username: {expectedUsername}")
     public void TestLoginWithPhoneNumber(String phoneNumber, String password, String expectedUsername) {
         Allure.parameter("phoneNumber", phoneNumber);
         Allure.parameter("password", password);
@@ -110,9 +109,8 @@ public class TestCaseLogin extends Basic {
         softAssert.assertAll();
     }
     
-    @Test(priority = 2, dataProvider = "ValidLoginData2", description = "TC01 - Kiểm tra đăng nhập thành công bằng gmail")
+    @Test(priority = 2, dataProvider = "ValidLoginData2", description = "TC02 - Xác minh chức năng đăng nhập thành công bằng email")
     @Story("Đăng nhập bằng gmail thành công")
-    @Step("Login with phoneNumber: {phoneNumber}, password: {password}, username: {expectedUsername}")
     public void TestLoginWithEmail(String gmail, String password, String expectedUsername) {
         Allure.parameter("gmail", gmail);
         Allure.parameter("password", password);
@@ -138,9 +136,8 @@ public class TestCaseLogin extends Basic {
     }
 
 
-    @Test(priority = 3, dataProvider = "InvalidLoginData1", description = "TC02 - Kiểm tra đăng nhập thất bại")
-    @Story("Đăng nhập thất bại với tài khoản mật khẩu không đúng")
-    @Step("Login with phoneNumber: {phoneNumber}, password: {password}")
+    @Test(priority = 3, dataProvider = "InvalidLoginData1", description = "TC03 - Xác minh chức năng đăng nhập với số điện thoại hoặc mật khẩu không đúng")
+    @Story("Đăng nhập thất bại với tài khoản hoặc mật khẩu không đúng")
     public void TestLoginFail(String phoneNumber, String password, String expectedNotification) throws InterruptedException {
         Allure.parameter("phoneNumber", phoneNumber);
         Allure.parameter("password", password);
@@ -159,9 +156,8 @@ public class TestCaseLogin extends Basic {
 
 
 
-    @Test(priority = 4, dataProvider = "InvalidLoginData2", description = "TC03 - Kiểm tra đăng nhập thất bại với tài khoản < 9 kí tự")
+    @Test(priority = 4, dataProvider = "InvalidLoginData2", description = "TC04 - Xác minh chức năng đăng nhập với tài khoản < 9 kí tự")
     @Story("Đăng nhập thất bại với tài khoản < 9 kí tự")
-    @Step("Login with phoneNumber: {phoneNumber}, password: {password}")
     public void TestLoginFail_AccountLengthLessThan8(String phoneNumber, String password, String expectedMessage) throws InterruptedException {
         Allure.parameter("phoneNumber", phoneNumber);
         Allure.parameter("password", password);

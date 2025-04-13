@@ -28,12 +28,13 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
-import io.reactivex.rxjava3.functions.Action;
+import utils.listeners.Utils;
 
 public class AddProductPage {
 	private AndroidDriver driver;
 	private WebDriverWait wait;
 	private Actions ac;
+	private Utils utils;
 	
 	@AndroidFindBy(uiAutomator = "new UiSelector().text(\"Thêm ảnh\")")
 	private WebElement btnAddImage;
@@ -107,7 +108,8 @@ public class AddProductPage {
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"0\")")
     private WebElement inputInventory;
     
-   
+   @AndroidFindBy(xpath = "//androidx.viewpager.widget.ViewPager/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[3]")
+   private WebElement optionInventory;
     
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Phí vận chuyển\")")
     private WebElement shippingFee;
@@ -124,10 +126,17 @@ public class AddProductPage {
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Hiển thị\")")
     private WebElement btnDisplay;
     
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text=\"Cập nhật\"]")
+    private WebElement btnUpdate;
     
 	@AndroidFindBy(className = "android.widget.Toast")
 	private WebElement toastErrorImage;
 	
+	@AndroidFindBy(xpath = "//android.view.ViewGroup[contains(@resource-id, '_product_item_cell')]/android.view.ViewGroup[2]//android.view.ViewGroup[contains(@resource-id, '_product_stock')]/android.widget.TextView[@index='1']")
+	List<WebElement> listInventory;
+	
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text=\"Cuối trang\"]")
+	WebElement lastPage;
 //	@AndroidFindBy(xpath = "new UiSelector().text(\"Khoảng giới hạn cho Giá = 1000.00 ~ 120000000.00\")")
 //	private WebElement spanErrorProductPrice;
 	
@@ -141,9 +150,6 @@ public class AddProductPage {
 	@AndroidFindBy(xpath = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]//android.widget.TextView[@index='0']")
 	private WebElement productIndustry;
 	
-	
-
-	
 
 	@AndroidFindBy(xpath = "(//android.view.ViewGroup[contains(@resource-id, \"_product_name_and_price_label\")])[1]//android.widget.TextView[@index='0']")
 	private WebElement productDisplay;
@@ -152,10 +158,22 @@ public class AddProductPage {
 	@AndroidFindBy(id = "com.shopee.vn:id/action")
 	private WebElement btnAction;
 	
+	@AndroidFindBy(id = "com.shopee.vn:id/buttonDefaultPositive")
+	private WebElement btnConfirm;
+	
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text=\"Giá và tồn kho\"]")
+	private WebElement btnPriceAndInventory;
+	
+	@AndroidFindBy(xpath = "(//android.view.ViewGroup[@resource-id=\"price_input_box\"])[1]//android.widget.EditText")
+	private WebElement inputPriceEdit;
+	
+	@AndroidFindBy(xpath = "//android.view.ViewGroup[@resource-id=\"stock_edit_cell\"]/android.view.ViewGroup/android.view.ViewGroup[2]//android.widget.EditText")
+	private WebElement inputInventoryEdit;	
     public AddProductPage(AndroidDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         ac = new Actions(driver);
+        utils = new Utils(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
     
@@ -270,6 +288,21 @@ public class AddProductPage {
 	   	return this;
    }
    
+   public AddProductPage clickSortInventoryDescending() {
+	    Allure.step("Nhấn chọn sắp xếp theo tồn kho giảm dần");
+	    wait.until(ExpectedConditions.elementToBeClickable(optionInventory)).click();
+	    return this;
+	}
+
+	public AddProductPage clickSortInventoryAscending() throws InterruptedException {
+	    Allure.step("Nhấn chọn sắp xếp theo tồn kho tăng dần");
+	    wait.until(ExpectedConditions.elementToBeClickable(optionInventory)).click();
+	    Thread.sleep(2000); 
+	    wait.until(ExpectedConditions.elementToBeClickable(optionInventory)).click();
+	    return this;
+	}
+
+   
 //   public AddProductPage chooseOptionNoBrand(String trademark) {
 //	   String dynamicXPath = String.format("//android.widget.TextView[@text=\"%s\"]", categoryName);
 //       WebElement categoryOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(dynamicXPath)));
@@ -381,6 +414,44 @@ public class AddProductPage {
     	return this;
     }
     
+    private AddProductPage clickBtnConfirm() {
+    	Allure.step("Nhấn nút xác nhận");
+    	wait.until(ExpectedConditions.elementToBeClickable(btnConfirm)).click();
+    	return this;
+    }
+    
+    public AddProductPage clickBtnUpdate() {
+    	Allure.step("Nhấn nút cập nhật");
+    	wait.until(ExpectedConditions.elementToBeClickable(btnUpdate)).click();
+    	return this;
+    }
+    
+    public AddProductPage clickBtnPriceAndInventory() {
+    	Allure.step("Nhấn nút giá và tồn kho");
+    	btnPriceAndInventory.click();
+    	return this;
+    }
+    
+    public AddProductPage sendKeyPrice(String price) {
+    	
+    	wait.until(ExpectedConditions.visibilityOf(inputPriceEdit));
+    	Allure.step("Xóa dữ liệu cũ trong ô input giá");
+    	inputPriceEdit.clear();
+    	Allure.step("Nhập giá vào ô input: " + price);
+    	inputPriceEdit.sendKeys(price);
+    	return this;
+    }
+    
+    public AddProductPage sendKeyInventory(String inventory) {
+    	
+    	wait.until(ExpectedConditions.visibilityOf(inputInventoryEdit));
+    	Allure.step("Xóa dữ liệu cũ trong ô input tồn kho");
+    	inputInventoryEdit.clear();
+    	Allure.step("Nhập giá vào ô input: " + inventory);
+    	inputInventoryEdit.sendKeys(inventory);
+    	return this;
+    }
+    
     public AddProductPage addProductAS(String productName, String description, String price, String inventory, String weight, String category, String subCategory, String brandName) throws InterruptedException {
     	
     	Thread.sleep(1000);
@@ -399,6 +470,86 @@ public class AddProductPage {
     	shippingFeeAS(weight);
     	
     	return this;
+    }
+    
+    public AddProductPage clickBtnHiddenByProductName(String name) {
+        Allure.step("Tìm và nhấn nút Ẩn cho sản phẩm: " + name, () -> {
+            boolean found = false;
+            
+            while (!found) {
+                List<WebElement> productCards = driver.findElements(By.xpath("//android.view.ViewGroup[contains(@resource-id, '_product_item_cell')]"));
+                System.out.println("Số lượng productCards: "+ productCards);
+                for (WebElement card : productCards) {
+                    try {
+                        WebElement nameElement = card.findElement(By.xpath(".//android.view.ViewGroup[1]//android.view.ViewGroup//android.view.ViewGroup[contains(@resource-id, '_product_name_and_price_label')]//android.widget.TextView[1]"));
+                        System.out.println("Số lượng tên: "+ nameElement);
+                        if (nameElement.getText().trim().equals(name)) {
+                            WebElement hideButton = card.findElement(By.xpath(".//android.widget.TextView[@text='Ẩn']"));
+                            hideButton.click();
+                            found = true;
+
+                            Allure.step("Nhấn nút ẩn sản phẩm: " + name);
+                            Thread.sleep(1000);
+                            clickBtnConfirm();
+                            break;
+                        }
+                    } catch (Exception e) {
+                    }
+                }
+
+                if (found || isElementVisible(lastPage)) break;
+
+                utils.scrollDown();
+                Thread.sleep(500);
+            }
+
+            if (!found) {
+                Allure.step("Không tìm thấy sản phẩm: " + name);
+                throw new RuntimeException("Không tìm thấy sản phẩm có tên: " + name);
+            }
+        });
+
+        return this;
+    }
+    
+    public AddProductPage clickBtnSeeMore(String name) {
+        Allure.step("Tìm và nhấn nút Ẩn cho sản phẩm: " + name, () -> {
+            boolean found = false;
+            
+            while (!found) {
+                List<WebElement> productCards = driver.findElements(By.xpath("//android.view.ViewGroup[contains(@resource-id, '_product_item_cell')]"));
+
+                for (WebElement card : productCards) {
+                    try {
+                        WebElement nameElement = card.findElement(By.xpath(".//android.view.ViewGroup[1]//android.view.ViewGroup//android.view.ViewGroup[contains(@resource-id, '_product_name_and_price_label')]//android.widget.TextView[1]"));
+                        System.out.println("Tên: " + nameElement.getText());
+                        if (nameElement.getText().trim().equals(name)) {
+                        	WebElement seeMoreButton = card.findElement(By.xpath(".//android.view.ViewGroup[@resource-id='see_more_button']"));
+                            seeMoreButton.click();
+                            found = true;
+                            
+                            Allure.step("Nhấn nút ẩn xem thêm ");
+                            Thread.sleep(1000);
+                            clickBtnPriceAndInventory();
+                            break;
+                        }
+                    } catch (Exception e) {
+                    }
+                }
+
+                if (found || isElementVisible(lastPage)) break;
+
+                utils.scrollDown();
+                Thread.sleep(500);
+            }
+
+            if (!found) {
+                Allure.step("Không tìm thấy sản phẩm: " + name);
+                throw new RuntimeException("Không tìm thấy sản phẩm có tên: " + name);
+            }
+        });
+
+        return this;
     }
     
     public boolean verifyAddNewProduct(String productName) throws InterruptedException {
@@ -565,6 +716,88 @@ public class AddProductPage {
         });
     }
     
-    /*============= Kiểm tra thông báo lỗi checkbox=====================*/
-    
+    public boolean verifyInventorySorted(boolean ascending) {
+        String direction = ascending ? "tăng dần" : "giảm dần";
+        return Allure.step("Kiểm tra tồn kho hiển thị theo thứ tự " + direction, () -> {
+            try {
+                int previousInventory = ascending ? 0 : Integer.MAX_VALUE;
+                int productIndex = 1;
+                boolean allValid = true;
+
+                while (true) {
+                    List<WebElement> inventories = listInventory;
+                    List<WebElement> names = driver.findElements(By.xpath(
+                        "//android.view.ViewGroup[contains(@resource-id, '_product_name_and_price_label')]//android.widget.TextView[1]"
+                    ));
+
+                    for (int i = 0; i < Math.min(inventories.size(), names.size()); i++) {
+                        String name = names.get(i).getText().trim();
+                        String invText = inventories.get(i).getText().replaceAll("[^0-9]", "");
+                        int currentInventory = invText.isEmpty() ? 0 : Integer.parseInt(invText);
+
+                        boolean isValid = ascending 
+                            ? currentInventory >= previousInventory 
+                            : currentInventory <= previousInventory;
+
+                        if (!isValid) {
+                            Allure.step("Sản phẩm " + productIndex + ": " + name +
+                                " | Tồn kho: " + currentInventory +
+                                (ascending ? " < " : " > ") + previousInventory + " => Không hợp lệ");
+                            allValid = false;
+                        } else {
+                            Allure.step("Sản phẩm " + productIndex + ": " + name +
+                                " | Tồn kho: " + currentInventory +
+                                (ascending ? " >= " : " <= ") + previousInventory + " =>  Hợp lệ");
+                        }
+
+                        previousInventory = currentInventory;
+                        productIndex++;
+                    }
+
+                    if (isElementVisible(lastPage)) break;
+
+                    utils.scrollDown();
+                    Thread.sleep(1000);
+                }
+
+                return allValid;
+
+            } catch (Exception e) {
+                Allure.step("Lỗi kiểm tra sắp xếp tồn kho (" + direction + "): " + e.getMessage());
+                return false;
+            }
+        });
+    }
+
+
+
+    public boolean isElementVisible(WebElement element) {
+        try {
+            return element.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean verifyProductIsHidden(String name) {
+        return Allure.step("Kiểm tra sản phẩm đã được ẩn: " + name, () -> {
+            List<WebElement> productCards = driver.findElements(By.xpath("//android.view.ViewGroup[contains(@resource-id, '_product_item_cell')]"));
+
+            for (WebElement card : productCards) {
+                try {
+                    WebElement nameElement = card.findElement(By.xpath(".//android.view.ViewGroup[contains(@resource-id, '_product_name_and_price_label')]//android.widget.TextView[1]"));
+
+                    if (nameElement.getText().trim().equals(name)) {
+                        Allure.step("Sản phẩm vẫn còn hiển thị: " + name);
+                        return false;
+                    }
+                } catch (Exception e) {
+                    
+                }
+            }
+
+            Allure.step("Sản phẩm đã được ẩn thành công: " + name);
+            return true;
+        });
+    }
 }

@@ -1,5 +1,5 @@
 target/
 
-allure-results/
-
 test-output/
+
+ExtentReports/

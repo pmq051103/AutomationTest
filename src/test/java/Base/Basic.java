@@ -16,10 +16,6 @@ public class Basic {
     public static AndroidDriver driver;
     public static AppiumDriverLocalService service;
 
-//    @BeforeClass
-//    public void setupSuite() throws MalformedURLException {
-//        configureAppium();
-//    }
 
     public void configureAppium() throws MalformedURLException {
         service = new AppiumServiceBuilder()

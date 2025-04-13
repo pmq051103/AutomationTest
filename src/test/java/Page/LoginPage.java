@@ -140,7 +140,7 @@ public class LoginPage{
                 }
                 return result;
             } catch (Exception e) {
-                System.err.println("Lỗi khi lấy Toast: " + e.getMessage());
+                
                 Allure.addAttachment("Lỗi khi lấy Toast", e.getMessage());
                 return false;
             }
@@ -172,6 +172,20 @@ public class LoginPage{
         }
         return null;
     }
+    
+    @Step("Kiểm tra chuyển hướng sang trang đăng nhập")
+    public boolean isLoginPageDisplayed() {
+        return Allure.step("Xác minh trang đăng nhập hiển thị", () -> {
+            boolean isDisplayed = btnLogin.isDisplayed();
+            if (!isDisplayed) {
+                Allure.addAttachment("Lỗi", "Không chuyển hướng về trang đăng nhập");
+            } else {
+                Allure.step("Đã chuyển hướng về trang đăng nhập");
+            }
+            return isDisplayed;
+        });
+    }
+
 
     /**
      * Nhập OTP vào trường input
