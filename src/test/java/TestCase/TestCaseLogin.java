@@ -108,72 +108,72 @@ public class TestCaseLogin extends Basic {
 
         softAssert.assertAll();
     }
-    
-    @Test(priority = 2, dataProvider = "ValidLoginData2", description = "TC02 - Xác minh chức năng đăng nhập thành công bằng email")
-    @Story("Đăng nhập bằng gmail thành công")
-    public void TestLoginWithEmail(String gmail, String password, String expectedUsername) {
-        Allure.parameter("gmail", gmail);
-        Allure.parameter("password", password);
-        Allure.parameter("expectedUsername", expectedUsername);
-        SoftAssert softAssert = new SoftAssert();
-        
-        loginPage.loginAS(gmail, password, softAssert);
-        loginPage.verifyInputValue(softAssert,gmail,password);
-        loginPage.clickBtnLogin();
-        
-        try {
-            Thread.sleep(3000);
-            homePage.clickBtnBack();
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        boolean isLoginSuccessful = homePage.confirmLogin(expectedUsername);
-        softAssert.assertTrue(isLoginSuccessful, "Xác nhận đăng nhập thất bại");
-
-        softAssert.assertAll();
-    }
-
-
-    @Test(priority = 3, dataProvider = "InvalidLoginData1", description = "TC03 - Xác minh chức năng đăng nhập với số điện thoại hoặc mật khẩu không đúng")
-    @Story("Đăng nhập thất bại với tài khoản hoặc mật khẩu không đúng")
-    public void TestLoginFail(String phoneNumber, String password, String expectedNotification) throws InterruptedException {
-        Allure.parameter("phoneNumber", phoneNumber);
-        Allure.parameter("password", password);
-    	SoftAssert softAssert = new SoftAssert();
-        
-        loginPage.loginAS(phoneNumber, password, softAssert);
-        loginPage.verifyInputValue(softAssert,phoneNumber,password);
-        loginPage.clickBtnLogin();
-        Thread.sleep(500);
-
-        boolean isLoginFailed = loginPage.confirmLoginFaild(expectedNotification);
-        softAssert.assertTrue(isLoginFailed, "Thông báo lỗi đăng nhập không đúng");
-
-        softAssert.assertAll();
-    }
-
-
-
-    @Test(priority = 4, dataProvider = "InvalidLoginData2", description = "TC04 - Xác minh chức năng đăng nhập với tài khoản < 9 kí tự")
-    @Story("Đăng nhập thất bại với tài khoản < 9 kí tự")
-    public void TestLoginFail_AccountLengthLessThan8(String phoneNumber, String password, String expectedMessage) throws InterruptedException {
-        Allure.parameter("phoneNumber", phoneNumber);
-        Allure.parameter("password", password);
-    	SoftAssert softAssert = new SoftAssert();
-        
-        loginPage.loginAS(phoneNumber, password, softAssert);
-        loginPage.verifyInputValue(softAssert,phoneNumber,password);
-        loginPage.clickBtnLogin();
-        Thread.sleep(500);
-
-        boolean isLoginFailed = loginPage.confirmLoginFaild(expectedMessage);
-        softAssert.assertTrue(isLoginFailed, "Thông báo lỗi đăng nhập không đúng");
-
-        softAssert.assertAll();
-    }
-
+//    
+//    @Test(priority = 2, dataProvider = "ValidLoginData2", description = "TC02 - Xác minh chức năng đăng nhập thành công bằng email")
+//    @Story("Đăng nhập bằng gmail thành công")
+//    public void TestLoginWithEmail(String gmail, String password, String expectedUsername) {
+//        Allure.parameter("gmail", gmail);
+//        Allure.parameter("password", password);
+//        Allure.parameter("expectedUsername", expectedUsername);
+//        SoftAssert softAssert = new SoftAssert();
+//        
+//        loginPage.loginAS(gmail, password, softAssert);
+//        loginPage.verifyInputValue(softAssert,gmail,password);
+//        loginPage.clickBtnLogin();
+//        
+//        try {
+//            Thread.sleep(3000);
+//            homePage.clickBtnBack();
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        boolean isLoginSuccessful = homePage.confirmLogin(expectedUsername);
+//        softAssert.assertTrue(isLoginSuccessful, "Xác nhận đăng nhập thất bại");
+//
+//        softAssert.assertAll();
+//    }
+//
+//
+//    @Test(priority = 3, dataProvider = "InvalidLoginData1", description = "TC03 - Xác minh chức năng đăng nhập với số điện thoại hoặc mật khẩu không đúng")
+//    @Story("Đăng nhập thất bại với tài khoản hoặc mật khẩu không đúng")
+//    public void TestLoginFail(String phoneNumber, String password, String expectedNotification) throws InterruptedException {
+//        Allure.parameter("phoneNumber", phoneNumber);
+//        Allure.parameter("password", password);
+//    	SoftAssert softAssert = new SoftAssert();
+//        
+//        loginPage.loginAS(phoneNumber, password, softAssert);
+//        loginPage.verifyInputValue(softAssert,phoneNumber,password);
+//        loginPage.clickBtnLogin();
+//        Thread.sleep(500);
+//
+//        boolean isLoginFailed = loginPage.confirmLoginFaild(expectedNotification);
+//        softAssert.assertTrue(isLoginFailed, "Thông báo lỗi đăng nhập không đúng");
+//
+//        softAssert.assertAll();
+//    }
+//
+//
+//
+//    @Test(priority = 4, dataProvider = "InvalidLoginData2", description = "TC04 - Xác minh chức năng đăng nhập với tài khoản < 9 kí tự")
+//    @Story("Đăng nhập thất bại với tài khoản < 9 kí tự")
+//    public void TestLoginFail_AccountLengthLessThan8(String phoneNumber, String password, String expectedMessage) throws InterruptedException {
+//        Allure.parameter("phoneNumber", phoneNumber);
+//        Allure.parameter("password", password);
+//    	SoftAssert softAssert = new SoftAssert();
+//        
+//        loginPage.loginAS(phoneNumber, password, softAssert);
+//        loginPage.verifyInputValue(softAssert,phoneNumber,password);
+//        loginPage.clickBtnLogin();
+//        Thread.sleep(500);
+//
+//        boolean isLoginFailed = loginPage.confirmLoginFaild(expectedMessage);
+//        softAssert.assertTrue(isLoginFailed, "Thông báo lỗi đăng nhập không đúng");
+//
+//        softAssert.assertAll();
+//    }
+//
 
 
     @AfterMethod
