@@ -7,10 +7,10 @@
     <test thread-count="5" name="Test_Shopee">
         <classes>
 <!--            <class name="TestCase.TestCaseLogin"/>-->
-            <class name="TestCase.TestCaseSearchProduct"/>
+<!--            <class name="TestCase.TestCaseSearchProduct"/>-->
 <!--			<class name="TestCase.TestCaseAddToCard"/>-->
 <!--			<class name="TestCase.TestCaseAddFavorite"/>-->
-<!--			<class name="TestCase.TestCaseAddProduct"/> -->
+			<class name="TestCase.TestCaseAddProduct"/> 
         </classes>
     </test>
 </suite>
