@@ -3,15 +3,22 @@ package Page;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import org.apache.commons.math3.util.Pair;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.PointerInput;
@@ -20,6 +27,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
+
 
 import Data.DataReader;
 import io.appium.java_client.android.AndroidDriver;
@@ -43,23 +51,42 @@ public class SearchPage {
     @AndroidFindBy(uiAutomator = "new UiSelector().className(\"android.widget.ImageView\").instance(2)")
     WebElement btnSearch;
 
-    
-    
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Giá\")")
     WebElement optionPrice;
     
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Lọc\")")
     private WebElement filter ;
     
+    @AndroidFindBy(xpath = "//androidx.recyclerview.widget.RecyclerView/android.widget.ImageView[1]")
+    private WebElement image;
+    
     @AndroidFindBy(xpath="//android.view.ViewGroup[@index='0']//android.widget.TextView[@index='0' and starts-with(@text, '₫') and matches(@text, '^₫[0-9,.]+$')]")
     List<WebElement> productPrice;
+    
     @AndroidFindBy(xpath="//android.view.ViewGroup[@index='1']//android.widget.TextView[starts-with(@text, '!')]")
     List<WebElement> nameProducts;
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@index='1']")
-    List<WebElement> productItems;
+    
+    @AndroidFindBy(xpath = "//android.widget.FrameLayout[@resource-id='com.shopee.vn:id/DRE_VIEW_CONTAINER_ID']")
+    List<WebElement> productContainers;
 
     
+    @AndroidFindBy(xpath = "//android.view.ViewGroup[@index='1']")
+    List<WebElement> productItems;
     
+    @AndroidFindBy(xpath = "//android.widget.TextView[starts-with(@resource-id, 'labelItemCardItemName_')]")
+    List<WebElement> itemNames;
+    
+    @AndroidFindBy(xpath = "(//android.widget.FrameLayout[@resource-id=\"com.shopee.vn:id/DRE_VIEW_CONTAINER_ID\"])[position() >= 4]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup")
+    List<WebElement> Suggest;
+    
+    @AndroidFindBy(uiAutomator  = "new UiSelector().text(\"Đánh giá\")")
+    WebElement evaluate;
+    
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Nơi Bán\")")
+    WebElement whereBuy;
+    
+    @AndroidFindBy(xpath = "(//android.widget.FrameLayout[@resource-id='com.shopee.vn:id/DRE_VIEW_CONTAINER_ID'])[1]/android.view.ViewGroup//android.widget.TextView[1]")
+    WebElement listProductEmpty;
     public SearchPage(AndroidDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
@@ -72,6 +99,12 @@ public class SearchPage {
         wait.until(ExpectedConditions.visibilityOf(inputSearch)).sendKeys(nameProduct);
         return this;
     }
+    
+    public SearchPage chooseImage() {
+    	Allure.step("Chọn ảnh từ thư viện");
+    	wait.until(ExpectedConditions.elementToBeClickable(image)).click();
+    	return this;
+    }
 
     public SearchPage clickBtnSearch() {
         Allure.step("Nhấn nút tìm");
@@ -79,9 +112,70 @@ public class SearchPage {
         return this;
     }
     
-    public SearchPage clickOptionPrice() {
-        Allure.step("Nhấn vào bộ lọc giá");
+    
+    public String clickOptionLocation() throws InterruptedException {
+        int x = 357, y = 1021;
+        
+        //tapAtPosition(x, y);
+        
+        //Thread.sleep(500); 
+        
+        String clickedText = getTextAtPosition(x, y);
+        Allure.step("Nhấn chọn option "+ clickedText);
+        Thread.sleep(1000);
+        tapAtPosition(815, 2157);
+        Allure.step("Nhấn nút áp dụng");
+        
+        return clickedText;
+    }
+    
+    public SearchPage clickOptionWhereBy() throws InterruptedException {
+    	Allure.step("Nhấn chọn option Nơi bán");
+    	Thread.sleep(2000);
+    	tapAtPosition(357, 1021);
+    	return this;
+    }
+    
+    public String getTextAtPosition(int x, int y) {
+        List<WebElement> textElements = driver.findElements(By.xpath("//android.widget.TextView"));
+        
+        WebElement closestElement = null;
+        double minDistance = Double.MAX_VALUE;
+
+        for (WebElement element : textElements) {
+            Point location = element.getLocation();
+            double distance = Math.sqrt(Math.pow(location.x - x, 2) + Math.pow(location.y - y, 2));
+
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestElement = element;
+            }
+        }
+
+        if (closestElement != null) {
+            tapAtPosition(closestElement.getLocation().x, closestElement.getLocation().y);
+            return closestElement.getText();
+        } else {
+            return "Không tìm thấy phần tử gần tọa độ";
+        }
+    }
+
+    public SearchPage searchByNameAS(String name) {
+    	sendKeyInputSearch(name);
+    	return clickBtnSearch();
+    }
+    
+    public SearchPage clickOptionPriceAscending() {
+        Allure.step("Nhấn vào lọc giá tăng dần");
         wait.until(ExpectedConditions.elementToBeClickable(optionPrice)).click();
+        return this;
+    }
+    
+    public SearchPage clickOptionPriceDescending() throws InterruptedException {
+        Allure.step("Nhấn vào lọc giá tăng dần");
+        wait.until(ExpectedConditions.elementToBeClickable(optionPrice)).click();
+        Thread.sleep(3000);
+        optionPrice.click();
         return this;
     }
 
@@ -91,6 +185,26 @@ public class SearchPage {
         return this;
     }
     
+    public SearchPage clickProduct(int i) {
+        Allure.step("Nhấn chọn sản phẩm thứ " + (i + 1));
+        
+        if (nameProducts.isEmpty()) {
+            throw new NoSuchElementException("Không tìm thấy sản phẩm nào trong danh sách!");
+        }
+
+        if (i >= nameProducts.size()) {
+            throw new IndexOutOfBoundsException("Không thể chọn sản phẩm thứ " + (i + 1) + 
+                " vì danh sách chỉ có " + nameProducts.size() + " sản phẩm!");
+        }
+
+        WebElement product = nameProducts.get(i);
+        wait.until(ExpectedConditions.elementToBeClickable(product)).click(); 
+        return this;
+    }
+
+    public String getSpan() {
+    	return listProductEmpty.getText();
+    }
     
     public List<String> getProductListBySearchName(String searchName) throws IOException {
         // Xây dựng đường dẫn file dựa trên tên sản phẩm
@@ -106,41 +220,84 @@ public class SearchPage {
         return productList;
     }
 
-
     
-    public List<String> getAllProductsByScrolling() {
-        Set<String> productSet = new HashSet<>();
-        List<String> productList = new ArrayList<>();
-        int previousSize = 0; // Lưu số lượng sản phẩm trước đó
-        final int MAX_PRODUCTS = 14; // Giới hạn số sản phẩm cần lấy
-        
-        while (productList.size() < MAX_PRODUCTS) { 
-            List<WebElement> currentProducts = nameProducts;
-            for (WebElement product : currentProducts) {
-                String productName = product.getText().replace("!", "").trim().toLowerCase();
-                if (!productSet.contains(productName)) {
-                    System.out.println("Thêm sản phẩm: " + productName);
-                    productSet.add(productName);
-                    productList.add(productName);
+    public boolean verifyProductsContainSearchName(String searchName, List<WebElement> productElements) throws IOException {
+        // Lấy danh sách từ khóa mong đợi từ file CSV và chuẩn hóa
+        List<String> expectedKeywords = getProductListBySearchName(searchName)
+                .stream()
+                .map(String::trim)
+                .map(keyword -> normalizeText(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+        System.out.println("Expected Keywords: " + expectedKeywords);
 
-                    if (productList.size() >= MAX_PRODUCTS) {
-                        return productList;
+        Set<String> seenProducts = new HashSet<>();
+        AtomicInteger previousSize = new AtomicInteger(0);
+        final int MAX_PRODUCTS = 14;
+
+        return Allure.step("Kiểm tra danh sách sản phẩm theo từ khóa: " + searchName, () -> {
+            while (seenProducts.size() < MAX_PRODUCTS) {
+                for (WebElement product : productElements) { // Dùng danh sách truyền vào
+                    // Lấy tên sản phẩm và chuẩn hóa
+                    String productName = normalizeText(product.getText().toLowerCase());
+
+                    System.out.println("Product Name: " + productName);
+                    if (seenProducts.contains(productName)) {
+                        continue;
+                    }
+                    seenProducts.add(productName);
+
+                    boolean isValid = Allure.step("Kiểm tra sản phẩm: " + productName, () -> {
+                        boolean result = expectedKeywords.stream().anyMatch(keyword ->
+                                productName.contains(keyword));
+
+                        if (result) {
+                            Allure.step("Sản phẩm hợp lệ: " + productName);
+                        } else {
+                        	Allure.attachment("Lỗi", "Sản phẩm không hợp lệ: " + productName);
+                            softAssert.assertEquals("Lỗi", "Sản phẩm không hợp lệ: " + productName);
+                        }
+
+                        return result;
+                    });
+
+                    if (!isValid) {
+                        return false;
+                    }
+
+                    if (seenProducts.size() >= MAX_PRODUCTS) {
+                        Allure.step("Tất cả sản phẩm hiển thị đều hợp lệ.");
+                        return true;
                     }
                 }
+
+                if (seenProducts.size() == previousSize.get()) {
+                    break;
+                }
+
+                previousSize.set(seenProducts.size());
+                scrollDown();
             }
 
-            if (productList.size() == previousSize) {
-                break;
-            }
-
-            previousSize = productList.size();
-
-            scrollDown();
-        }
-
-        return productList;
+            Allure.step("Tất cả sản phẩm hiển thị đều hợp lệ.");
+            return true;
+        });
     }
     
+    public boolean verifyProductsSearchByName(String searchName) throws IOException {
+    	return verifyProductsContainSearchName(searchName, nameProducts);
+    }
+    
+    public boolean verifyProductsSearchByImage(String searchName) throws IOException {
+    	return verifyProductsContainSearchName(searchName, itemNames);
+    }
+
+
+    private String normalizeText(String text) {
+        return text.replaceFirst("^0+", "").replaceAll("[^\\p{L}\\p{N}\\s]", "").replaceAll("\\s+", " ").trim();
+    }
+
+
+
 //    //Kiểm tra xem danh sách sản phẩm có đúng với tiêu chí tìm kiếm không
 //    public boolean verifyProductsContainSearchName(String searchName) {
 //        List<String> allProducts = getAllProductsByScrolling();
@@ -159,39 +316,13 @@ public class SearchPage {
 //        });
 //    }
     
-    public boolean verifyProductsContainSearchName(String searchName) throws IOException {
-        List<String> expectedProducts = getProductListBySearchName(searchName)
-                .stream()
-                .map(String::toLowerCase)
-                .collect(Collectors.toList());
 
-        List<String> actualProducts = getAllProductsByScrolling()
-                .stream()
-                .map(String::toLowerCase)
-                .collect(Collectors.toList());
-
-        Set<String> invalidProducts = actualProducts.stream()
-                .filter(product -> !expectedProducts.contains(product)) // Sản phẩm hiển thị nhưng không có trong danh sách mong đợi
-                .collect(Collectors.toSet());
-
-        return Allure.step("Kiểm tra sản phẩm tìm kiếm: " + searchName, () -> {
-            if (!invalidProducts.isEmpty()) {
-                invalidProducts.forEach(product -> 
-                    Allure.step("Sản phẩm \"" + product + "\" KHÔNG có trong danh sách mong đợi.")
-                );
-                return false;
-            }
-
-            Allure.step("Tất cả sản phẩm hiển thị đều hợp lệ.");
-            return true; 
-        });
-    }
 
     
     private void scrollDown() {
         int startX = driver.manage().window().getSize().width / 2;
-        int startY = (int) (driver.manage().window().getSize().height * 0.7);
-        int endY = (int) (driver.manage().window().getSize().height * 0.3);
+        int startY = (int) (driver.manage().window().getSize().height * 0.8);
+        int endY = (int) (driver.manage().window().getSize().height * 0.2);
 
         PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
         Sequence swipe = new Sequence(finger, 1);
@@ -205,124 +336,179 @@ public class SearchPage {
     }
 
     public boolean verifyProductsWithinPriceRange(int minPrice, int maxPrice) {
-        return Allure.step("🔍 Kiểm tra giá sản phẩm trong khoảng [" + minPrice + " - " + maxPrice + "]", () -> {
+        return Allure.step("Kiểm tra giá sản phẩm trong khoảng [" + minPrice + " - " + maxPrice + "]", () -> {
             final int MAX_PRODUCTS = 20;
-            int validCount = 0;
-
-            System.out.println("\n===== BẮT ĐẦU KIỂM TRA GIÁ =====");
-            System.out.println("Khoảng giá mong muốn: [" + minPrice + " - " + maxPrice + "]");
-
-            //boolean hasNewProducts;
+            AtomicInteger validCount = new AtomicInteger(0);
+            Set<String> checkedProducts = new HashSet<>();
 
             do {
-                updateProductLists(); // Cập nhật danh sách sản phẩm
 
-                List<WebElement> priceElements = driver.findElements(By.xpath("//android.view.ViewGroup[@index='0']//android.widget.TextView[@index='0' and starts-with(@text, '₫') and matches(@text, '^₫[0-9,.]+$')]"));
+                List<WebElement> productContainers = driver.findElements(By.xpath(
+                    "(//android.widget.FrameLayout[@resource-id=\"com.shopee.vn:id/DRE_VIEW_CONTAINER_ID\"][position() > 3])"
+                    + "/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup"
+                    + "/android.view.ViewGroup/android.view.ViewGroup[2]"
+                ));
 
-                for (WebElement priceElement : priceElements) {
+                for (WebElement container : productContainers) {
                     try {
-                        int productPrice = extractPrice(priceElement.getText());
+                        WebElement nameElement = container.findElement(By.xpath(".//android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.TextView"));
+                        WebElement priceElement = container.findElement(By.xpath(".//android.widget.TextView[starts-with(@text, '₫')]"));
 
-                        // Nếu phát hiện giá không nằm trong khoảng, fail test ngay
-                        if (productPrice < minPrice || productPrice > maxPrice) {
-                            System.out.println("Lỗi: Sản phẩm có giá ngoài khoảng cho phép: " + productPrice);
-                            throw new AssertionError("Test thất bại: Có sản phẩm không nằm trong khoảng giá!");
+                        if (!nameElement.isDisplayed() || !priceElement.isDisplayed()) {
+                            continue;
                         }
 
-                        validCount++;
+                        String productName = nameElement.getText();
+                        int productPrice = extractPrice(priceElement.getText());
 
-                        // Nếu đã kiểm tra đủ số lượng sản phẩm, dừng lại
-                        if (validCount >= MAX_PRODUCTS) {
+                        if (checkedProducts.contains(productName)) {
+                            continue;
+                        }
+                        checkedProducts.add(productName);
+
+                        boolean isValid = Allure.step("Kiểm tra sản phẩm: " + productName, () -> {
+                            if (productPrice < minPrice || productPrice > maxPrice) {
+                                Allure.attachment("Lỗi", "Sản phẩm: " + productName + " có giá ₫" + productPrice + " ngoài khoảng cho phép.");
+                                return false;
+                            } else {
+                                Allure.step(" Hợp lệ - Giá: ₫" + productPrice);
+                                return true;
+                            }
+                        });
+
+                        if (!isValid) {
+                            return false;
+                        }
+
+                        validCount.incrementAndGet();
+                        if (validCount.get() >= MAX_PRODUCTS) {
+                            Allure.step("Tất cả sản phẩm đều nằm trong khoảng giá");
+                            return true;
+                        }
+                    } catch (StaleElementReferenceException e) {
+                        System.out.println("Phần tử không còn tồn tại, tải lại danh sách...");
+                        break;
+                    } catch (NoSuchElementException e) {
+                        System.out.println("Không tìm thấy phần tử: " + e.getMessage());
+                    }
+                }
+
+                scrollDown();
+                Thread.sleep(2000);
+            } while (validCount.get() < MAX_PRODUCTS);
+
+            return true;
+        });
+    }
+
+
+
+    
+    public boolean verifyProductsSortedByAscendingPrice() {
+        return verifyProductsSortedByOrder(true);
+    }
+
+    public boolean verifyProductsSortedByDescendingPrice() {
+        return verifyProductsSortedByOrder(false);
+    }
+
+    
+    public boolean verifyProductsSortedByOrder(boolean isAscending) {
+        String orderText = isAscending ? "tăng dần" : "giảm dần";
+        return Allure.step("Kiểm tra sản phẩm có được sắp xếp theo giá " + orderText, () -> {
+            AtomicInteger previousPrice = new AtomicInteger(isAscending ? 0 : Integer.MAX_VALUE);
+            AtomicInteger checkedCount = new AtomicInteger(0);
+            final int MAX_PRODUCTS = 20;
+            Set<String> checkedProducts = new HashSet<>();
+
+            do {
+
+                List<WebElement> productContainers = driver.findElements(By.xpath(
+                    "(//android.widget.FrameLayout[@resource-id=\"com.shopee.vn:id/DRE_VIEW_CONTAINER_ID\"][position() > 3])"
+                    + "/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup"
+                    + "/android.view.ViewGroup/android.view.ViewGroup[2]"
+                ));
+
+                System.out.println("Số lượng sản phẩm: " + productContainers.size());
+
+                for (WebElement container : productContainers) {
+                    try {
+                        List<WebElement> nameElements = container.findElements(By.xpath(".//android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.TextView"));
+                        List<WebElement>  priceElements = container.findElements(By.xpath(".//android.widget.TextView[starts-with(@text, '₫')]"));
+                        
+                        WebElement nameElement = nameElements.get(0);
+                        WebElement priceElement = priceElements.get(0);
+                        
+                        if (!nameElement.isDisplayed() || !priceElement.isDisplayed()) {
+                            continue;
+                        }
+
+                        String productName = nameElement.getText();
+                        int currentPrice = extractPrice(priceElement.getText());
+
+                        if (checkedProducts.contains(productName)) {
+                            continue;
+                        }
+                        checkedProducts.add(productName);
+
+                        boolean isValid = Allure.step("Kiểm tra sản phẩm: " + productName, () -> {
+                            boolean isSortedCorrectly = isAscending ? (currentPrice >= previousPrice.get()) : (currentPrice <= previousPrice.get());
+
+                            if (checkedCount.get() > 0 && !isSortedCorrectly) {
+                                Allure.attachment("Lỗi", "Sản phẩm: " + productName + " có giá ₫" + currentPrice + 
+                                                  (isAscending ? " nhỏ hơn " : " lớn hơn ") + "sản phẩm trước đó ₫" + previousPrice.get());
+                                return false;
+                            } else {
+                                Allure.step("✅ Hợp lệ - Giá: ₫" + currentPrice);
+                                return true;
+                            }
+                        });
+
+                        if (!isValid) {
+                            return false;
+                        }
+
+                        previousPrice.set(currentPrice);
+                        checkedCount.incrementAndGet();
+
+                        if (checkedCount.get() >= MAX_PRODUCTS) {
+                            Allure.step("Tất cả sản phẩm đã được sắp xếp theo giá " + orderText);
                             return true;
                         }
 
-                    } catch (Exception e) {
-                        System.out.println("Lỗi khi xử lý sản phẩm: " + e.getMessage());
+                    } catch (StaleElementReferenceException e) {
+                        System.out.println("Phần tử không còn tồn tại, tải lại danh sách...");
+                        break;
+                    } catch (NoSuchElementException e) {
+                        System.out.println("Không tìm thấy phần tử: " + e.getMessage());
                     }
                 }
 
                 scrollDown();
                 Thread.sleep(2000);
 
-            } while (validCount < MAX_PRODUCTS);
+            } while (checkedCount.get() < MAX_PRODUCTS);
 
             return true;
         });
     }
-    
- // Cập nhật danh sách sản phẩm sau khi cuộn để đảm bảo đồng bộ
-    private void updateProductLists() {
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//android.view.ViewGroup[@index='1']//android.widget.TextView[starts-with(@text, '!')]")));
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//android.view.ViewGroup[@index='0']//android.widget.TextView[@index='0' and starts-with(@text, '₫') and matches(@text, '^₫[0-9,.]+$')]")));
-    }
 
-    // Trả về key của sản phẩm (Tên + Giá) để tránh kiểm tra trùng
-    private String getProductKey(WebElement nameElement, WebElement priceElement) {
-        String productName = nameElement.getText().trim().toLowerCase();
-        String productPriceText = priceElement.getText().trim();
-        return productName + "-" + productPriceText;
-    }
-
-    // Cuộn xuống và chờ load sản phẩm mới
-    private void scrollAndWaitForLoad() {
-        scrollDown();
-        try {
-            Thread.sleep(1500); // Chờ nội dung load hoàn toàn
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-    }
 
 
     
-    private boolean processProduct(WebElement nameElement, WebElement priceElement, int minPrice, int maxPrice, AndroidDriver driver) {
-        String productName = nameElement.getText().trim().toLowerCase();
-        String productPrice = priceElement.getText();
 
-        return Allure.step("Kiểm tra sản phẩm: " + productName, () -> {
-            try {
-                int priceValue = extractPrice(productPrice);
 
-                if (isPriceValid(priceValue, minPrice, maxPrice)) {
-                    String successMsg = "✔ " + productName + " - Giá: " + priceValue + " nằm trong khoảng.";
-                    System.out.println(successMsg);
-                    Allure.step(successMsg);
-                    return true;
-                } else {
-                    String errorMsg = "❌ LỖI: " + productName + " - Giá: " + priceValue + " KHÔNG nằm trong khoảng [" + minPrice + " - " + maxPrice + "].";
-                    handleError(errorMsg, driver);
-                    return false;
-                }
-            } catch (NumberFormatException e) {
-                String parseErrorMsg = "LỖI: Không thể chuyển đổi giá sản phẩm: \"" + productPrice + "\" của sản phẩm \"" + productName + "\".";
-                handleError(parseErrorMsg, driver);
-                return false;
-            }
-        });
-    }
 
     
 
     // Chuyển đổi giá từ chuỗi sang số nguyên
     private int extractPrice(String rawPrice) throws NumberFormatException {
-        return Integer.parseInt(rawPrice.replace("₫", "").replaceAll("[^0-9]", "").trim());
+        // Cắt chuỗi để lấy giá đầu tiên (trước khoảng trắng nếu có)
+        String firstPrice = rawPrice.split("\\s+")[0];
+
+        // Chuyển đổi giá trị thành số nguyên
+        return Integer.parseInt(firstPrice.replace("₫", "").replaceAll("[^0-9]", "").trim());
     }
-
-    // Kiểm tra giá có hợp lệ không
-    private boolean isPriceValid(int price, int minPrice, int maxPrice) {
-        return price >= minPrice && price <= maxPrice;
-    }
-
-    private void handleError(String errorMsg, AndroidDriver driver) {
-        System.err.println(errorMsg);
-        Allure.attachment("Lỗi", errorMsg);
-
-        // 🛠 Gọi hàm chụp ảnh khi có lỗi
-        byte[] screenshot = AllureTestListener.saveScreenshotPNG(driver);
-        Allure.getLifecycle().addAttachment("Ảnh lỗi", "image/png", "png", screenshot);
-    }
-
-
     
     
     public SearchPage filterAS(String min, String max) throws InterruptedException {
@@ -330,7 +516,7 @@ public class SearchPage {
         Allure.step("Cuộn để tìm bộ lọc theo khoảng giá");
         swipeToExactPosition(582, 2030, 563, 1500);
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         clickAndSendKeys(351, 985, min);
         Allure.step("Nhập giá tối thiểu: " + min);
 
@@ -344,90 +530,121 @@ public class SearchPage {
             System.out.println("Bàn phím đã đóng, không cần ẩn.");
         }
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         tapAtPosition(1030, 2190);
         System.out.println("Đã click nút xác nhận");
         return this;
     }
     
+    public String clickFilterFeedback() throws InterruptedException {
+    	int x = 353 , y =1191;
+        Thread.sleep(1000);
+        Allure.step("Cuộn để tìm bộ lọc theo đánh giá");
+        swipeToExactPosition(582, 2030, 564, 1500);
+        Thread.sleep(1000);
+        swipeToExactPosition(582, 2030, 564, 1500);
+        
+        Thread.sleep(1000);
+        String feedbackStr = getTextAtPosition(x, y);
+        Allure.step("Nhấn chọn option: " + feedbackStr);
+        Thread.sleep(1000);
+        tapAtPosition(815, 2157);
+        Allure.step("Nhấn nút áp dụng");
+        return feedbackStr;
+    }
     
+    public String clickFilterOnSale() throws InterruptedException {
+    	int x = 353 , y =1763;
+        Thread.sleep(1000);
+        Allure.step("Cuộn để tìm bộ lọc theo đang giảm giá");
+        swipeToExactPosition(582, 2030, 564, 1500);
+        Thread.sleep(1000);
+        swipeToExactPosition(582, 2030, 564, 1500);
+        
+        Thread.sleep(1000);
+        String onSaleStr = getTextAtPosition(x, y);
+        Allure.step("Nhấn chọn option: " + onSaleStr);
+        Thread.sleep(1000);
+        tapAtPosition(815, 2157);
+        Allure.step("Nhấn nút áp dụng");
+        return onSaleStr;
+    }
     
-    
-    
+    public boolean verifyProductsWithinRating(String rating) {
+        return Allure.step("Kiểm tra đánh giá sản phẩm: " + rating , () -> {
+            final int MAX_PRODUCTS = 14;
+            AtomicInteger validCount = new AtomicInteger(0);
+            Set<String> checkedProducts = new HashSet<>();
+            System.out.println("Trước: "+ rating);
+            double expectedRating = convertToDouble(rating); 
+            System.out.println("Sau: "+ expectedRating);
+            
+            do {
+                List<WebElement> productContainers = driver.findElements(By.xpath(
+                    "(//android.widget.FrameLayout[@resource-id=\"com.shopee.vn:id/DRE_VIEW_CONTAINER_ID\"][position() > 4])"
+                    + "/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup"
+                    + "/android.view.ViewGroup/android.view.ViewGroup[2]"
+                ));
 
-    
+                for (WebElement container : productContainers) {
+                    try {
+                        if (!container.isDisplayed()) {
+                            continue;
+                        }
+                        List<WebElement> nameElements = container.findElements(By.xpath(".//android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.TextView"));
+                        List<WebElement> ratingElements = container.findElements(By.xpath(".//android.view.ViewGroup[4]/android.view.ViewGroup[1]/android.view.ViewGroup"
+                                + "/android.view.ViewGroup/android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.TextView"));
 
-    
-    
-    
+                        if (nameElements.isEmpty() || ratingElements.isEmpty()) {
+                            continue;
+                        }
 
+                        WebElement nameElement = nameElements.get(0);
+                        WebElement ratingElement = ratingElements.get(0);
 
-    
-//    // Kiểm tra xem đã click vào bộ lọc giá chưa
-//    @Step("Kiểm tra trạng thái của bộ lọc giá")
-//    public boolean isOptionPriceSelected() {
-//        try {
-//            return Allure.step("Xác minh click vào bộ lọc giá", () -> {
-//                // Chụp ảnh trước khi click
-//                File beforeScreenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-//                Allure.addAttachment("Ảnh trước khi click", new ByteArrayInputStream(Files.readAllBytes(beforeScreenshot.toPath())));
-//
-//                clickOptionPrice();
-//                Thread.sleep(500); // Chờ giao diện cập nhật
-//
-//                // Chụp ảnh sau khi click
-//                File afterScreenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-//                Allure.addAttachment("Ảnh sau khi click", new ByteArrayInputStream(Files.readAllBytes(afterScreenshot.toPath())));
-//
-//                // So sánh ảnh
-//                BufferedImage beforeImage = ImageIO.read(beforeScreenshot);
-//                BufferedImage afterImage = ImageIO.read(afterScreenshot);
-//                boolean isDifferent = areImagesDifferent(beforeImage, afterImage);
-//
-//                if (!isDifferent) {
-//                    Allure.addAttachment("Ảnh không thay đổi (Lỗi)", new ByteArrayInputStream(Files.readAllBytes(afterScreenshot.toPath())));
-//                    throw new AssertionError("❌ LỖI: Bộ lọc giá chưa được chọn!");
-//                }
-//
-//                Allure.step("✅ Đã click vào bộ lọc giá");
-//                return true;
-//            });
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
-//
-//
-//
-//
-//
-//
-//    // Hàm so sánh hai ảnh pixel-by-pixel
-//    private boolean areImagesDifferent(BufferedImage img1, BufferedImage img2) {
-//        int width1 = img1.getWidth();
-//        int height1 = img1.getHeight();
-//        int width2 = img2.getWidth();
-//        int height2 = img2.getHeight();
-//
-//        // Kiểm tra kích thước ảnh có giống nhau không
-//        if (width1 != width2 || height1 != height2) {
-//            return true;
-//        }
-//
-//        // Duyệt từng pixel để so sánh
-//        for (int y = 0; y < height1; y++) {
-//            for (int x = 0; x < width1; x++) {
-//                if (img1.getRGB(x, y) != img2.getRGB(x, y)) {
-//                    return true; // Nếu có pixel khác nhau, ảnh đã thay đổi
-//                }
-//            }
-//        }
-//        return false; // Ảnh giống nhau
-//    }
+                        String productName = nameElement.getText();
+                        double productRating = convertToDouble(ratingElement.getText());
+
+                        if (checkedProducts.contains(productName)) {
+                            continue;
+                        }
+                        checkedProducts.add(productName);
+
+                        boolean isValid = Allure.step("Kiểm tra sản phẩm: " + productName, () -> {
+                            if (productRating < expectedRating) {
+                                Allure.attachment("Lỗi", "Sản phẩm " + productName + " có rating " + productRating + " thấp hơn yêu cầu.");
+                                return false;
+                            }
+                            Allure.step("Sản phẩm " + productName +" Hợp lệ - Rating: " + productRating);
+                            return true;
+                        });
+
+                        if (!isValid) {
+                            return false;
+                        }
+
+                        validCount.incrementAndGet();
+                        if (validCount.get() >= MAX_PRODUCTS) {
+                            Allure.step("Tất cả sản phẩm đều đạt yêu cầu về rating.");
+                            return true;
+                        }
+                    } catch (StaleElementReferenceException e) {
+                        System.out.println("Phần tử không còn tồn tại, tải lại danh sách...");
+                        break;
+                    } catch (NoSuchElementException e) {
+                        System.out.println("Không tìm thấy phần tử: " + e.getMessage());
+                    }
+                }
+
+                scrollDown();
+                Thread.sleep(2000);
+            } while (validCount.get() < MAX_PRODUCTS);
+
+            return true;
+        });
+    }
 
 
-    
     @Step("Kiểm tra nội dung tìm kiếm")
     public boolean confirmSearchContent(String nameProduct) {
         wait.until(ExpectedConditions.visibilityOf(inputSearch));
@@ -468,7 +685,6 @@ public class SearchPage {
         tap.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
         
         driver.perform(Collections.singletonList(tap));
-        System.out.println("Clicking and sending keys at position: (" + x + ", " + y + ")");
     }
     
     private void clickAndSendKeys(int x, int y, String text) throws InterruptedException {
@@ -476,4 +692,166 @@ public class SearchPage {
         Thread.sleep(3000);
         ac.sendKeys(text).perform();
     }
+    
+    public String selectRandomSuggest() {
+        return Allure.step("Thực hiện chọn ngẫu nhiên 1 gợi ý", () -> {
+        	 driver.hideKeyboard();
+             Thread.sleep(1000);
+            Random random = new Random();
+            int randomIndex = random.nextInt(Suggest.size());
+            WebElement selectedProduct = Suggest.get(randomIndex);
+            
+            WebElement textView = selectedProduct.findElement(By.xpath(".//android.widget.TextView"));
+            String productName = textView.getText();
+
+            Allure.step("Sản phẩm được chọn: " + productName);
+            selectedProduct.click();
+
+            return normalizeText(productName);
+        });
+    }
+    
+    public boolean verifyFirstProductMatchesSuggestion(String suggest) {
+        return Allure.step("Kiểm tra sản phẩm có hợp lệ với gợi ý tìm kiếm", () -> {
+            // Lấy tên sản phẩm đầu tiên hiển thị
+            WebElement firstProduct = nameProducts.get(0);
+            String firstProductName = firstProduct.getText().toLowerCase();
+
+            // Tách gợi ý tìm kiếm thành các từ riêng biệt
+            String[] keywords = suggest.toLowerCase().split("\\s+");
+
+            // Kiểm tra xem tên sản phẩm có chứa ít nhất một từ trong gợi ý không
+            boolean isValid = Arrays.stream(keywords).anyMatch(firstProductName::contains);
+
+            // Log kết quả vào Allure
+            Allure.step("So sánh: [" + firstProductName + "] với gợi ý [" + suggest + "]");
+            Allure.step("Kết quả kiểm tra: " + (isValid ? "Hợp lệ" : "Không hợp lệ"));
+
+            return isValid;
+        });
+    }
+    
+    
+    
+    
+    public void swipeLeftFromElement() {
+    	Allure.step("Vuốt sang trái để tìm bộ lọc theo nơi bán");
+        int startX = evaluate.getLocation().getX() + evaluate.getSize().getWidth() - 10;
+        int startY = evaluate.getLocation().getY() + (evaluate.getSize().getHeight() / 2);
+        int endX = evaluate.getLocation().getX() - 400; // Vuốt về bên trái
+
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+        Sequence swipe = new Sequence(finger, 1);
+
+        // Chạm vào điểm bắt đầu
+        swipe.addAction(finger.createPointerMove(Duration.ofMillis(0), PointerInput.Origin.viewport(), startX, startY));
+        swipe.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+
+        // Vuốt đến điểm kết thúc với thời gian `duration`
+        swipe.addAction(finger.createPointerMove(Duration.ofMillis(1500), PointerInput.Origin.viewport(), endX, startY));
+        swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+        driver.perform(Collections.singletonList(swipe));
+    }
+    
+    
+    public boolean verifyProductsWithWhereBuy(String whereBy) {
+        return Allure.step("Kiểm tra nơi bán của sản phẩm là [" + whereBy + "]", () -> {
+            final int MAX_PRODUCTS = 14;
+            AtomicInteger validCount = new AtomicInteger(0);
+            Set<String> checkedProducts = new HashSet<>();
+
+            do {
+                List<WebElement> productContainers = driver.findElements(By.xpath(
+                    "(//android.widget.FrameLayout[@resource-id='com.shopee.vn:id/DRE_VIEW_CONTAINER_ID'][position() > 3])"
+                    + "/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup"
+                    + "/android.view.ViewGroup/android.view.ViewGroup[2]"
+                ));
+
+                for (WebElement container : productContainers) {
+                    List<WebElement> nameElements = container.findElements(By.xpath(".//android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.TextView"));
+                    List<WebElement> whereBuyElements = container.findElements(By.xpath(".//android.view.ViewGroup[4]/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView"));
+
+                    if (nameElements.isEmpty() || whereBuyElements.isEmpty()) {
+                        continue; 
+                    }
+
+                    WebElement nameElement = nameElements.get(0);
+                    WebElement whereBuyElement = whereBuyElements.get(0);
+
+                    if (!nameElement.isDisplayed() || !whereBuyElement.isDisplayed()) {
+                        continue;
+                    }
+
+                    String productName = nameElement.getText();
+                    String productWhereBuy = whereBuyElement.getText().trim();
+
+                    if (checkedProducts.contains(productName)) {
+                        continue;
+                    }
+                    checkedProducts.add(productName);
+
+                    boolean isValid = Allure.step("Kiểm tra sản phẩm: " + productName, () -> {
+                        if (!productWhereBuy.equalsIgnoreCase(whereBy)) {
+                            Allure.attachment("Lỗi", "Sản phẩm: " + productName + " có nơi bán là [" + productWhereBuy + "] không khớp với [" + whereBy + "]");
+                            return false;
+                        } else {
+                            Allure.step("Hợp lệ - Nơi bán: " + productWhereBuy);
+                            return true;
+                        }
+                    });
+
+                    if (!isValid) {
+                        return false;
+                    }
+
+                    validCount.incrementAndGet();
+                    if (validCount.get() >= MAX_PRODUCTS) {
+                        Allure.step("Tất cả sản phẩm đều có nơi bán hợp lệ");
+                        return true;
+                    }
+                }
+
+                scrollDown();
+                Thread.sleep(1500);
+            } while (validCount.get() < MAX_PRODUCTS);
+
+            return true;
+        });
+    }
+    
+    public boolean verifyEmptySearchResultSpan(String expectedMessage) {
+        return Allure.step("Xác minh span hiển thị khi kết quả tìm kiếm rỗng", () -> {
+            try {
+                wait.until(ExpectedConditions.visibilityOf(listProductEmpty));
+
+                String actualMessage = listProductEmpty.getText();
+                boolean result = actualMessage.equals(expectedMessage);
+                if (result) {
+                    Allure.step("Thành công. Span hiển thị đúng: \"" + actualMessage + "\"");
+                } else {
+                    Allure.attachment("Lỗi","Span không khớp. Mong đợi: \"" + expectedMessage + "\" | Thực tế: \"" + actualMessage + "\"");
+                }
+
+                return result;
+            } catch (Exception e) {
+                Allure.addAttachment("Lỗi khi xác minh span hiển thị", e.getMessage());
+                return false;
+            }
+        });
+    }
+
+
+    
+    public static double convertToDouble(String text) {
+        try {
+            String numberPart = text.replaceAll("[^0-9.]", "");
+            return Double.parseDouble(numberPart);
+        } catch (Exception e) {
+            System.out.println("Lỗi chuyển đổi: " + e.getMessage());
+            return -1;
+        }
+    }
+
+
 }

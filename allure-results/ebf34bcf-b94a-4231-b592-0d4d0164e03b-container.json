@@ -1,0 +1,1 @@
+{"uuid":"ebf34bcf-b94a-4231-b592-0d4d0164e03b","name":"TestCase.TestCaseAddToCard","children":["89c774bd-16be-4e6f-8a03-d91a04127950"],"befores":[],"afters":[{"name":"afterClass","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1744444253257,"stop":1744444255265}],"start":1744444182044,"stop":1744444255268}

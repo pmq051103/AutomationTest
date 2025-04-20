@@ -38,7 +38,7 @@ public class AllureTestListener implements ITestListener {
     public void onTestFailure(ITestResult iTestResult) {
         AndroidDriver driver = (AndroidDriver) iTestResult.getTestContext().getAttribute("driver");
         if (driver != null) {
-            byte[] screenshot = saveScreenshotPNG(driver); // Chụp ảnh lỗi
+            byte[] screenshot = saveScreenshotPNG(driver); 
             Allure.getLifecycle().addAttachment("Screenshot", "image/png", "png", screenshot); 
         }
         saveTextLog("Test thất bại: " + iTestResult.getName());

@@ -106,8 +106,15 @@ public class LoginPage{
     }
 
     
-    public void verifyErrorMessagesInSpans(SoftAssert softAssert, String expectedPhoneOrEmail, String expectedPassWord){
-        String span_PhoneOrEmail = inputPhoneOrEmail.getText().replaceAll("[^0-9]", "").replaceFirst("^84", "");
+    public void verifyInputValue(SoftAssert softAssert, String expectedPhoneOrEmail, String expectedPassWord){
+    	 String inputValue = inputPhoneOrEmail.getText();
+
+    	    // Nếu là số điện thoại (có chứa số) thì xử lý, nếu không thì giữ nguyên (email)
+    	    String span_PhoneOrEmail = inputValue.matches("^.*\\d.*$") 
+    	                                ? inputValue.replaceAll("\\(\\+84\\)", "") // Xóa (+84) nếu có
+    	                                            .replaceAll("\\s+", "")        // Xóa khoảng trắng sau cùng
+    	                                : inputValue;
+    	    
         String span_Password = inputPassword.getText();
     	// Kiểm tra và log từng thông báo
     	checkInputValue("Phone Or Email", span_PhoneOrEmail, expectedPhoneOrEmail, softAssert);
@@ -133,7 +140,7 @@ public class LoginPage{
                 }
                 return result;
             } catch (Exception e) {
-                System.err.println("Lỗi khi lấy Toast: " + e.getMessage());
+                
                 Allure.addAttachment("Lỗi khi lấy Toast", e.getMessage());
                 return false;
             }
@@ -165,6 +172,20 @@ public class LoginPage{
         }
         return null;
     }
+    
+    @Step("Kiểm tra chuyển hướng sang trang đăng nhập")
+    public boolean isLoginPageDisplayed() {
+        return Allure.step("Xác minh trang đăng nhập hiển thị", () -> {
+            boolean isDisplayed = btnLogin.isDisplayed();
+            if (!isDisplayed) {
+                Allure.addAttachment("Lỗi", "Không chuyển hướng về trang đăng nhập");
+            } else {
+                Allure.step("Đã chuyển hướng về trang đăng nhập");
+            }
+            return isDisplayed;
+        });
+    }
+
 
     /**
      * Nhập OTP vào trường input

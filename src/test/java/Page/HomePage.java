@@ -3,12 +3,15 @@ package Page;
 import java.io.File;
 import java.io.FileInputStream;
 import java.time.Duration;
+import java.util.Collections;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -31,10 +34,14 @@ public class HomePage {
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Tôi\")")
     WebElement btnMe;
     
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Home\")")
+    WebElement btnHome;
+    
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Đăng nhập\")")
     WebElement btnLogin;
     
-
+    @AndroidFindBy(xpath  = "//android.widget.ImageView[@resource-id=\"com.shopee.vn:id/action_btn1\"]")
+    WebElement btnSearchByImage;
     
     @AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"labelUserName\")")
     WebElement lblUserName;
@@ -60,6 +67,16 @@ public class HomePage {
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Thêm 1 sản phẩm mới\")")
     WebElement btnAddProduct;
     
+    @AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"com.shopee.vn:id/cart_btn\")")
+    WebElement btnCart;
+    
+    
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Xem tất cả\")")
+    WebElement btnViewAll;
+    
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Đã thích\")")
+    WebElement btnLiked;
+    
     public HomePage(AndroidDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
@@ -82,18 +99,24 @@ public class HomePage {
 
     public HomePage clickBtnMe() {
     	try {
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	btnMe.click();
+    	wait.until(ExpectedConditions.elementToBeClickable(btnMe)).click();
 		return this;
     }
     
     
     public HomePage clickbtnLogin() {
-    	wait.until(ExpectedConditions.elementToBeClickable(btnLogin)).click();
+    	btnLogin.click();
+    	return this;
+    }
+    
+    public HomePage clickBtnHome() throws InterruptedException {
+    	Thread.sleep(1000);
+    	wait.until(ExpectedConditions.elementToBeClickable(btnHome)).click();
     	return this;
     }
     
@@ -101,6 +124,19 @@ public class HomePage {
     	wait.until(ExpectedConditions.elementToBeClickable(iconSearch)).click();
     	return this;
 
+    }
+    
+    public HomePage clickIconCart() {
+    	Allure.step("Nhấn vào giỏ hàng");
+    	wait.until(ExpectedConditions.elementToBeClickable(btnCart)).click();
+    	return this;
+
+    }
+    
+    public HomePage clickBtnSearchByImage() {
+    	Allure.step("Nhấn vào nút tìm kiếm bằng hình ảnh");
+    	wait.until(ExpectedConditions.elementToBeClickable(btnSearchByImage)).click();
+    	return this;
     }
     
     public HomePage clickBtnBack() {
@@ -113,6 +149,28 @@ public class HomePage {
     	wait.until(ExpectedConditions.elementToBeClickable(btnGoToShop)).click();
     	return this;
     }
+    
+    public HomePage clickBtnViewAll() {
+      	Allure.step("Nhấn vào mục xem tất cả tiện ích");
+    	wait.until(ExpectedConditions.elementToBeClickable(btnViewAll)).click();
+    	return this;
+    }  
+    
+    public HomePage clickBtnLiked() {
+      	Allure.step("Nhấn vào mục đã thích");
+    	wait.until(ExpectedConditions.elementToBeClickable(btnLiked)).click();
+    	return this;
+    }
+    
+    public HomePage clickFavoriteAS() throws InterruptedException  {
+    	Thread.sleep(1000);
+    	swipeToExactPosition(527, 1759, 1003, 1500);
+    	Thread.sleep(1000);
+    	clickBtnViewAll();
+    	Thread.sleep(1000);
+    	return clickBtnLiked();
+    }
+    
     
     public HomePage clickBtnMyProduct() {
     	try {
@@ -189,7 +247,7 @@ public class HomePage {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	clickBtnAddNewProduct();
+    	
     	return this;
     }
     
@@ -213,7 +271,20 @@ public class HomePage {
     }
 
   
-    
+    private void swipeToExactPosition(int startX, int startY, int endY, int duration) {
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+        Sequence swipe = new Sequence(finger, 1);
+
+        // Chạm vào tọa độ (startX, startY)
+        swipe.addAction(finger.createPointerMove(Duration.ofMillis(0), PointerInput.Origin.viewport(), startX, startY));
+        swipe.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+
+        // Vuốt đến tọa độ (startX, endY) với tốc độ được điều chỉnh
+        swipe.addAction(finger.createPointerMove(Duration.ofMillis(duration), PointerInput.Origin.viewport(), startX, endY));
+        swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+        driver.perform(Collections.singletonList(swipe));
+    }
 
     
 }
