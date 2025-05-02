@@ -1,6 +1,7 @@
 package TestCase;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,10 +68,10 @@ public class TestCaseLogin extends Basic {
 
 
     @BeforeMethod
-    public void SetUp() throws MalformedURLException {
+    public void SetUp(Method method) throws MalformedURLException {
         
-        configureAppium(); // Khởi tạo lại driver
-        
+        configureAppium(); 
+        eyes.open(driver, "Shopee App", method.getName());
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
 
@@ -80,6 +81,7 @@ public class TestCaseLogin extends Basic {
 
         homePage.clickBtnBack();
         homePage.clickLoginAS();
+        eyes.checkWindow("Mở màn hình đăng nhập");
     }
 
 
@@ -89,12 +91,15 @@ public class TestCaseLogin extends Basic {
         Allure.parameter("phoneNumber", phoneNumber);
         Allure.parameter("password", password);
         Allure.parameter("expectedUsername", expectedUsername);
+
         SoftAssert softAssert = new SoftAssert();
-        
+
         loginPage.loginAS(phoneNumber, password, softAssert);
-        loginPage.verifyInputValue(softAssert,phoneNumber,password);
+        eyes.checkWindow("Đã nhập thông tin đăng nhập");
+
+        loginPage.verifyInputValue(softAssert, phoneNumber, password);
         loginPage.clickBtnLogin();
-        
+
         try {
             Thread.sleep(3000);
             homePage.clickBtnBack();
@@ -103,10 +108,13 @@ public class TestCaseLogin extends Basic {
             e.printStackTrace();
         }
 
+        eyes.checkWindow("Màn hình sau khi đăng nhập");
+
         boolean isLoginSuccessful = homePage.confirmLogin(expectedUsername);
         softAssert.assertTrue(isLoginSuccessful, "Xác nhận đăng nhập thất bại");
 
         softAssert.assertAll();
+        eyes.closeAsync();
     }
 //    
 //    @Test(priority = 2, dataProvider = "ValidLoginData2", description = "TC02 - Xác minh chức năng đăng nhập thành công bằng email")
