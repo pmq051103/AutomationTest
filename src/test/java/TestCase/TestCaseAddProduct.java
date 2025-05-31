@@ -1,6 +1,7 @@
 package TestCase;
 
 import java.net.MalformedURLException;
+import java.time.Duration;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -43,7 +44,7 @@ public class TestCaseAddProduct extends Basic{
         loginPage = new LoginPage(driver);
         
         
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         ITestContext context = Reporter.getCurrentTestResult().getTestContext();
         context.setAttribute("driver", driver);
         

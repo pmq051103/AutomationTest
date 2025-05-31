@@ -3,6 +3,7 @@ package TestCase;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -83,7 +84,7 @@ public class TestCaseSearchProduct extends Basic{
 	        searchPage = new SearchPage(driver);
 	        utils = new Utils(driver);
 	        eyes.open(driver, "Shopee App", method.getName());
-	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	        ITestContext context = Reporter.getCurrentTestResult().getTestContext();
 	        context.setAttribute("driver", driver);
 

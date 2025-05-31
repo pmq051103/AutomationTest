@@ -1,9 +1,8 @@
 package TestCase;
 
 import java.net.MalformedURLException;
-
+import java.time.Duration;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -14,7 +13,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import Base.Basic;
-import Page.AddProductPage;
 import Page.CartPage;
 import Page.FavoritePage;
 import Page.HomePage;
@@ -48,7 +46,7 @@ public class TestCaseAddToCard extends Basic{
         productDetailPage = new ProductDetailPage(driver);
         favoritePage = new FavoritePage(driver);
         
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         ITestContext context = Reporter.getCurrentTestResult().getTestContext();
         context.setAttribute("driver", driver);
         
