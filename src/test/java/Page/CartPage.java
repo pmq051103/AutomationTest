@@ -313,9 +313,9 @@ public class CartPage {
     
     public void swipeHorizontally(AndroidDriver driver, WebElement element) {
         // Lấy tọa độ của sản phẩm
-        int startX = element.getLocation().getX() + element.getSize().getWidth() - 10; // Điểm bắt đầu
-        int endX = element.getLocation().getX() + 10; // Vuốt sang trái đến điểm này
-        int startY = element.getLocation().getY() + (element.getSize().getHeight() / 2); // Giữ ở giữa sản phẩm
+        int startX = element.getLocation().getX() + element.getSize().getWidth() - 10;
+        int endX = element.getLocation().getX() + 10;
+        int startY = element.getLocation().getY() + (element.getSize().getHeight() / 2); 
 
         PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
         Sequence swipe = new Sequence(finger, 1);

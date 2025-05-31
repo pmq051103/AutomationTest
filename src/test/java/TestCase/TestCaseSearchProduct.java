@@ -1,6 +1,7 @@
 package TestCase;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -19,10 +20,14 @@ import Data.DataReader;
 import Page.HomePage;
 import Page.LoginPage;
 import Page.SearchPage;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import io.qameta.allure.Story;
 import utils.listeners.Utils;
+import utils.listeners.VisualActions;
 
 @Feature("Kiểm tra chức năng tìm kiếm")
 public class TestCaseSearchProduct extends Basic{
@@ -60,12 +65,9 @@ public class TestCaseSearchProduct extends Basic{
     public Object[][] getDataForTC12() throws IOException {
         String filePath = "DataFile/FilterPriceRange.csv"; 
         List<String[]> csvData = DataReader.getCSVData(filePath, 1);
-        // Lấy dòng thứ hai
         if (csvData.size() >= 2) {
             return new Object[][] { {
                 csvData.get(1)[0].trim(),
-                csvData.get(1)[1].trim(),
-                csvData.get(1)[2].trim()
             } };
         }
         return new Object[0][];
@@ -73,21 +75,20 @@ public class TestCaseSearchProduct extends Basic{
 
     
 	 @BeforeMethod
-	    public void SetUp() throws MalformedURLException {
+	    public void SetUp(Method method) throws MalformedURLException {
 	        
-	        configureAppium(); // Khởi tạo lại driver
+	        configureAppium();
 	        
 	        homePage = new HomePage(driver);
 	        searchPage = new SearchPage(driver);
 	        utils = new Utils(driver);
+	        eyes.open(driver, "Shopee App", method.getName());
 	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	        ITestContext context = Reporter.getCurrentTestResult().getTestContext();
 	        context.setAttribute("driver", driver);
 
 	        homePage.clickBtnBack();
-	    }
-	 
-	 
+	    } 
 	 
 	 @Test(priority = 1, dataProvider = "ProductData", description = "TC05 - Xác minh chức năng tìm kiếm sản phẩm với tên thành công")
 	    @Story("Tìm kiếm sản phẩm với tên thành công")
@@ -183,7 +184,7 @@ public class TestCaseSearchProduct extends Basic{
 	     searchPage.clickBtnSearch();
 	     
 	     Thread.sleep(1000);
-	     searchPage.clickOptionPriceDescending(); // Chọn sắp xếp theo giá giảm dần
+	     searchPage.clickOptionPriceDescending(); 
 	     Thread.sleep(4000);
 
 	     boolean result = searchPage.verifyProductsSortedByDescendingPrice();
@@ -193,31 +194,35 @@ public class TestCaseSearchProduct extends Basic{
 	 }
 
 	 
-	 @Test(priority = 7, dataProvider = "ProducFiltertData_TC11", description = "TC11 - Xác minh chức năng lọc sản phẩm theo khoảng giá có sẵn")
+	 @Test(priority = 7, dataProvider = "ProducFiltertData_TC11",description = "TC11 - Xác minh chức năng lọc sản phẩm theo khoảng giá có sẵn")
 	 @Story("Lọc theo khoảng giá có sẵn")
-	 public void TestFilterByPrice(String productName, String min, String max) throws InterruptedException {
+	 public void TestFilterByPrice(String productName) throws InterruptedException {
 	     SoftAssert softAssert = new SoftAssert();
 		homePage.clickIconSearch();
+		
 	     searchPage.sendKeyInputSearch(productName);
 	     
 	     searchPage.clickBtnSearch();
 	     
 	     searchPage.clickFilter();
-	     
-	     searchPage.filterAS(min, max);
-
-	     // Chờ dữ liệu tải (nếu cần)
+	     Thread.sleep(1000);
+	     searchPage.swipeToExactPosition(582, 2030, 563, 1500);
+	     Thread.sleep(1000);
+	     eyes.checkWindow("Màn hình bộ lọc");
+	     VisualActions.tapUsingVisualLocator("200k-300k", eyes, driver);
+	     Thread.sleep(1000);
+	     VisualActions.tapUsingVisualLocator("btnAPPLY", eyes, driver);
 	     Thread.sleep(2000);
 
-	     // Kiểm tra sản phẩm có đúng khoảng giá không
-	     boolean isPriceValid = searchPage.verifyProductsWithinPriceRange(Integer.parseInt(min), Integer.parseInt(max));
+	     boolean isPriceValid = searchPage.verifyProductsWithinPriceRange(Integer.parseInt("200000"), Integer.parseInt("300000"));
 
 	     softAssert.assertTrue(isPriceValid, "Lỗi: Có sản phẩm không nằm trong khoảng giá mong muốn!");
 
 	     softAssert.assertAll();
 	 }
 	 
-	 @Test(priority = 8, dataProvider = "ProducFiltertData_TC12", description = "TC12 - Xác minh chức năng lọc sản phẩm theo khoảng Giá nhập từ ô input")
+	 @Test(priority = 8, dataProvider = "ProducFiltertData_TC12", 
+			 description = "TC12 - Xác minh chức năng lọc sản phẩm theo khoảng Giá nhập từ ô input")
 	 @Story("Lọc theo khoảng giá nhập từ ô input")
 	 public void TestFilterByPriceInput(String productName, String min, String max) throws InterruptedException {
 	     SoftAssert softAssert = new SoftAssert();
@@ -227,19 +232,54 @@ public class TestCaseSearchProduct extends Basic{
 	     searchPage.clickBtnSearch();
 	     
 	     searchPage.clickFilter();
-	     
-	     searchPage.filterAS(min, max);
-
-	     // Chờ dữ liệu tải (nếu cần)
+	     Thread.sleep(1000);
+	     searchPage.swipeToExactPosition(582, 2030, 563, 1500);
+	     Thread.sleep(1000);
+	     eyes.checkWindow("Màn hình bộ lọc");
+	     VisualActions.sendKeysUsingVisualLocator("inputMinPrice", eyes, driver, min);
+	    
+	     VisualActions.sendKeysUsingVisualLocator("inputMaxPrice", eyes, driver, max);	     
+	     utils.hidenKeyBoard();
+	     eyes.checkWindow("Màn hình sau khi nhập");
+	     VisualActions.tapUsingVisualLocator("btnAPPLY", eyes, driver);
 	     Thread.sleep(2000);
-
-	     // Kiểm tra sản phẩm có đúng khoảng giá không
 	     boolean isPriceValid = searchPage.verifyProductsWithinPriceRange(Integer.parseInt(min), Integer.parseInt(max));
 
 	     softAssert.assertTrue(isPriceValid, "Lỗi: Có sản phẩm không nằm trong khoảng giá mong muốn!");
 
 	     softAssert.assertAll();
 	 }
+	 
+//	 @Test(priority = 8, dataProvider = "ProducFiltertData_TC12", 
+//			 description = "TC12 - Xác minh chức năng lọc sản phẩm theo khoảng Giá nhập từ ô input")
+//		@Story("Lọc theo khoảng giá nhập từ ô input")
+//		public void TestFilterByPriceInput(String productName, String min, String max) throws InterruptedException {
+//		    SoftAssert softAssert = new SoftAssert();
+//
+//		    homePage.clickIconSearch();
+//		    searchPage.sendKeyInputSearch(productName);
+//		    searchPage.clickBtnSearch();
+//		    searchPage.clickFilter();
+//
+//		    Thread.sleep(1000);
+//		    searchPage.swipeToExactPosition(582, 2030, 563, 1500);
+//		    Thread.sleep(1000);
+//
+//		    VisualActions.checkScreen(driver, "Màn hình bộ lọc");
+//		    VisualActions.sendKeysByImage(driver, "inputMinPrice", min);
+//		    VisualActions.sendKeysByImage(driver, "inputMaxPrice", max);
+//
+//		    utils.hidenKeyBoard();
+//
+//		    VisualActions.checkScreen(driver, "Màn hình sau khi nhập");
+//		    VisualActions.tapByImage(driver, "btnAPPLY");
+//
+//		    Thread.sleep(2000);
+//		    boolean isPriceValid = searchPage.verifyProductsWithinPriceRange(Integer.parseInt(min), Integer.parseInt(max));
+//		    softAssert.assertTrue(isPriceValid, "Lỗi: Có sản phẩm không nằm trong khoảng giá mong muốn!");
+//		    softAssert.assertAll();
+//		}
+
 	 
 	 @Test(priority = 9, description = "TC13 - Xác minh chức năng lọc sản phẩm khi điều kiện khoảng giá không hợp lệ")
 	 @Story("Lọc theo khoảng giá không hợp lệ")

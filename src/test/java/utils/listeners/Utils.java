@@ -14,6 +14,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 
@@ -108,6 +110,11 @@ public class Utils {
         driver.perform(Collections.singletonList(swipe));
     }
 
-
+	public void hidenKeyBoard() throws InterruptedException {
+	     if (driver.isKeyboardShown()) {
+	         ((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
+	         Thread.sleep(1000);
+	     }
+	}
 
 }

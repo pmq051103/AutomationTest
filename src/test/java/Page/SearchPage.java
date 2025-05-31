@@ -514,7 +514,7 @@ public class SearchPage {
     public SearchPage filterAS(String min, String max) throws InterruptedException {
         Thread.sleep(1000);
         Allure.step("Cuộn để tìm bộ lọc theo khoảng giá");
-        swipeToExactPosition(582, 2030, 563, 1500);
+       
 
         Thread.sleep(1000);
         clickAndSendKeys(351, 985, min);
@@ -661,7 +661,7 @@ public class SearchPage {
         });
     }
     
-    private void swipeToExactPosition(int startX, int startY, int endY, int duration) {
+    public void swipeToExactPosition(int startX, int startY, int endY, int duration) {
         PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
         Sequence swipe = new Sequence(finger, 1);
 
