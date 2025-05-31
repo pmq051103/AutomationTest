@@ -100,7 +100,7 @@ public class TestCaseLogin extends Basic {
         VisualActions.sendKeysUsingVisualLocator("inputPassWord", eyes, driver, password);
 
         eyes.checkWindow("Đã nhập thông tin đăng nhập");
-
+        loginPage.clickIconEye();
         loginPage.verifyInputValue(softAssert, phoneNumber, password);
 
         VisualActions.tapUsingVisualLocator("login_button", eyes, driver);
